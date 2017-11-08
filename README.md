@@ -1,2 +1,1 @@
-# TourDuLich
-Hệ thống quản lý tour du lịch
+## (XDPMPL) Bài tập 2: Xây dựng hệ thống quản lý Tour du lịch
