@@ -6,8 +6,8 @@ namespace TourDuLich.Win
 {
     public partial class Form1 : Form
     {
-        INhiemVuService nhiemVuService;
-        INhanVienService nhanVienService;
+        private INhiemVuService nhiemVuService;
+        private INhanVienService nhanVienService;
 
         public Form1(INhiemVuService nhiemVuService, INhanVienService nhanVienService)
         {
@@ -22,7 +22,7 @@ namespace TourDuLich.Win
         /// </summary>
         private void btnNhiemVu_Click(object sender, EventArgs e)
         {
-            foreach(var nv in nhanVienService.GetAll())
+            foreach (var nv in nhanVienService.GetAll())
             {
                 Console.WriteLine(nv.HoTen);
             }

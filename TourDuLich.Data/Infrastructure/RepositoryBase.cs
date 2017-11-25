@@ -9,6 +9,7 @@ namespace TourDuLich.Data.Infrastructure
     public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
+
         private TourDuLichEntities entities;
         private readonly IDbSet<T> dbSet;
 
@@ -22,7 +23,8 @@ namespace TourDuLich.Data.Infrastructure
         {
             get { return entities ?? (entities = DbFactory.Init()); }
         }
-        #endregion
+
+        #endregion Properties
 
         protected RepositoryBase(IDbFactory dbFactory)
         {
@@ -31,6 +33,7 @@ namespace TourDuLich.Data.Infrastructure
         }
 
         #region Implementation
+
         public virtual T Add(T entity)
         {
             return dbSet.Add(entity);
@@ -46,11 +49,13 @@ namespace TourDuLich.Data.Infrastructure
         {
             return dbSet.Remove(entity);
         }
+
         public virtual T Delete(int id)
         {
             var entity = dbSet.Find(id);
             return dbSet.Remove(entity);
         }
+
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
@@ -81,7 +86,7 @@ namespace TourDuLich.Data.Infrastructure
             }
             return entities.Set<T>().Where<T>(predicate).AsEnumerable<T>();
         }
-        
+
         public virtual T GetSingleById(int id)
         {
             return dbSet.Find(id);
@@ -103,10 +108,12 @@ namespace TourDuLich.Data.Infrastructure
         {
             return entities.Set<T>().Count<T>(predicate) > 0;
         }
+
         public virtual int Count(Expression<Func<T, bool>> where)
         {
             return dbSet.Count(where);
         }
-        #endregion
+
+        #endregion Implementation
     }
 }

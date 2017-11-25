@@ -15,7 +15,7 @@ namespace TourDuLich.Win.DI
             Kernel.Bind(typeof(IDbFactory)).To(typeof(DbFactory)).InTransientScope();
 
             // Binding repositories
-            Kernel.Bind(x => 
+            Kernel.Bind(x =>
             {
                 x.FromAssemblyContaining(typeof(INhiemVuRepository))
                  .SelectAllClasses()
