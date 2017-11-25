@@ -33,7 +33,7 @@
             // 
             // btnNhiemVu
             // 
-            this.btnNhiemVu.Location = new System.Drawing.Point(114, 127);
+            this.btnNhiemVu.Location = new System.Drawing.Point(101, 207);
             this.btnNhiemVu.Name = "btnNhiemVu";
             this.btnNhiemVu.Size = new System.Drawing.Size(75, 23);
             this.btnNhiemVu.TabIndex = 0;

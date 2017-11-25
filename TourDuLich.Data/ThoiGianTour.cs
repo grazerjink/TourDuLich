@@ -17,8 +17,8 @@ namespace TourDuLich.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ThoiGianTour()
         {
+            this.BangDangKies = new HashSet<BangDangKy>();
             this.DoanDuLiches = new HashSet<DoanDuLich>();
-            this.KhachDangKies = new HashSet<KhachDangKy>();
         }
     
         public int MaThoiGianTour { get; set; }
@@ -28,9 +28,9 @@ namespace TourDuLich.Data
         public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoanDuLich> DoanDuLiches { get; set; }
+        public virtual ICollection<BangDangKy> BangDangKies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachDangKy> KhachDangKies { get; set; }
+        public virtual ICollection<DoanDuLich> DoanDuLiches { get; set; }
         public virtual Tour Tour { get; set; }
     }
 }

@@ -17,8 +17,7 @@ namespace TourDuLich.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
-            this.DoanKhaches = new HashSet<DoanKhach>();
-            this.KhachDangKies = new HashSet<KhachDangKy>();
+            this.BangDangKies = new HashSet<BangDangKy>();
         }
     
         public int MaKhachHang { get; set; }
@@ -33,8 +32,6 @@ namespace TourDuLich.Data
         public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoanKhach> DoanKhaches { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachDangKy> KhachDangKies { get; set; }
+        public virtual ICollection<BangDangKy> BangDangKies { get; set; }
     }
 }

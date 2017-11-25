@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Windows.Forms;
 using TourDuLich.Service.Businesses;
-using TourDuLich.Win.DI;
 
 namespace TourDuLich.Win
 {
     public partial class Form1 : Form
     {
-        private INhiemVuService nhiemVuService;
+        INhiemVuService nhiemVuService;
+        INhanVienService nhanVienService;
 
-        public Form1(INhiemVuService nhiemVuService)
+        public Form1(INhiemVuService nhiemVuService, INhanVienService nhanVienService)
         {
             this.nhiemVuService = nhiemVuService;
+            this.nhanVienService = nhanVienService;
             InitializeComponent();
         }
 
-        private void btnNhiemVu_Click(object sender, System.EventArgs e)
+        /// <summary>
+        ///  Ví dụ demo thôi. Chứ không code dòng foreach trong form nha mọi người.
+        ///  Đem hết code vào Service để code và xử lý nghiệp vụ OKIE !!!
+        /// </summary>
+        private void btnNhiemVu_Click(object sender, EventArgs e)
         {
-            CompositionRoot.Resolve<Form2>().Show();
+            foreach(var nv in nhanVienService.GetAll())
+            {
+                Console.WriteLine(nv.HoTen);
+            }
         }
     }
 }

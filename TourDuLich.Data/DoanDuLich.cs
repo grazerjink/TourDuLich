@@ -17,7 +17,7 @@ namespace TourDuLich.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DoanDuLich()
         {
-            this.DoanKhaches = new HashSet<DoanKhach>();
+            this.BangDangKies = new HashSet<BangDangKy>();
             this.LichTrinhs = new HashSet<LichTrinh>();
             this.PhanCongs = new HashSet<PhanCong>();
         }
@@ -27,13 +27,11 @@ namespace TourDuLich.Data
         public string TenDoanDuLich { get; set; }
         public Nullable<int> SoLuongKhach { get; set; }
         public Nullable<int> SoLuongNhanVien { get; set; }
-        public Nullable<int> MaChiPhiPhuongTien { get; set; }
         public Nullable<int> TinhTrang { get; set; }
     
-        public virtual ChiPhiPhuongTien ChiPhiPhuongTien { get; set; }
-        public virtual ThoiGianTour ThoiGianTour { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoanKhach> DoanKhaches { get; set; }
+        public virtual ICollection<BangDangKy> BangDangKies { get; set; }
+        public virtual ThoiGianTour ThoiGianTour { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichTrinh> LichTrinhs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -4,7 +4,7 @@ using TourDuLich.Win.DI;
 
 namespace TourDuLich.Win
 {
-    internal static class Program
+    public static class Program
     {
         [STAThread]
         private static void Main()

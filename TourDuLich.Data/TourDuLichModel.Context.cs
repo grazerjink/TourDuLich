@@ -18,7 +18,6 @@ namespace TourDuLich.Data
         public TourDuLichEntities()
             : base("name=TourDuLichEntities")
         {
-            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,15 +25,15 @@ namespace TourDuLich.Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BangDangKy> BangDangKies { get; set; }
         public virtual DbSet<ChiPhiAnUong> ChiPhiAnUongs { get; set; }
         public virtual DbSet<ChiPhiKhachSan> ChiPhiKhachSans { get; set; }
         public virtual DbSet<ChiPhiPhatSinh> ChiPhiPhatSinhs { get; set; }
         public virtual DbSet<ChiPhiPhuongTien> ChiPhiPhuongTiens { get; set; }
+        public virtual DbSet<ChiTietDiaDiem> ChiTietDiaDiems { get; set; }
         public virtual DbSet<DiaDiem> DiaDiems { get; set; }
         public virtual DbSet<DoanDuLich> DoanDuLiches { get; set; }
-        public virtual DbSet<DoanKhach> DoanKhaches { get; set; }
         public virtual DbSet<GiaTour> GiaTours { get; set; }
-        public virtual DbSet<KhachDangKy> KhachDangKies { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<LichTrinh> LichTrinhs { get; set; }
         public virtual DbSet<LoaiHinhDuLich> LoaiHinhDuLiches { get; set; }

@@ -12,13 +12,15 @@ namespace TourDuLich.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class KhachDangKy
+    public partial class BangDangKy
     {
         public int Id { get; set; }
         public Nullable<int> MaKhachHang { get; set; }
         public Nullable<int> MaThoiGian { get; set; }
+        public Nullable<int> MaDoanDuLich { get; set; }
         public Nullable<System.DateTime> NgayDangKy { get; set; }
     
+        public virtual DoanDuLich DoanDuLich { get; set; }
         public virtual KhachHang KhachHang { get; set; }
         public virtual ThoiGianTour ThoiGianTour { get; set; }
     }

@@ -47,8 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Businesses\TinhThanhService.cs" />
     <Compile Include="Businesses\NhiemVuService.cs" />
+    <Compile Include="Businesses\NhanVienService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TourDuLich.Data\TourDuLich.Data.csproj">

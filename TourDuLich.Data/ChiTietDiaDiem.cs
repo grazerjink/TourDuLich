@@ -12,20 +12,19 @@ namespace TourDuLich.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiPhiPhuongTien
+    public partial class ChiTietDiaDiem
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ChiPhiPhuongTien()
+        public ChiTietDiaDiem()
         {
             this.LichTrinhs = new HashSet<LichTrinh>();
         }
     
-        public int MaChiPhiPhuongTien { get; set; }
-        public string TenPhuongTien { get; set; }
-        public string BienSoXe { get; set; }
+        public int MaChiTietDiaDiem { get; set; }
+        public Nullable<int> MaDiaDiem { get; set; }
         public string GhiChu { get; set; }
-        public Nullable<double> TongTien { get; set; }
     
+        public virtual DiaDiem DiaDiem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichTrinh> LichTrinhs { get; set; }
     }

@@ -18,15 +18,18 @@ namespace TourDuLich.Data
         public Nullable<int> MaDoanDuLich { get; set; }
         public Nullable<int> Ngay { get; set; }
         public string Buoi { get; set; }
+        public Nullable<int> MaChiTietDiaDiem { get; set; }
         public Nullable<int> MaChiPhiKhachSan { get; set; }
         public Nullable<int> MaChiPhiAnUong { get; set; }
-        public string NoiDungLichTrinh { get; set; }
+        public Nullable<int> MaChiPhiPhuongTien { get; set; }
         public Nullable<int> MaChiPhiPhatSinh { get; set; }
         public string GhiChu { get; set; }
     
         public virtual ChiPhiAnUong ChiPhiAnUong { get; set; }
         public virtual ChiPhiKhachSan ChiPhiKhachSan { get; set; }
         public virtual ChiPhiPhatSinh ChiPhiPhatSinh { get; set; }
+        public virtual ChiPhiPhuongTien ChiPhiPhuongTien { get; set; }
+        public virtual ChiTietDiaDiem ChiTietDiaDiem { get; set; }
         public virtual DoanDuLich DoanDuLich { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using Ninject.Extensions.Conventions;
+using Ninject.Modules;
 using TourDuLich.Data.Infrastructure;
 using TourDuLich.Data.Repositories;
 using TourDuLich.Service.Businesses;
@@ -10,14 +11,26 @@ namespace TourDuLich.Win.DI
         public override void Load()
         {
             // Binding factory
-            Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork));
-            Bind(typeof(IDbFactory)).To(typeof(DbFactory));
+            Kernel.Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork)).InTransientScope();
+            Kernel.Bind(typeof(IDbFactory)).To(typeof(DbFactory)).InTransientScope();
 
             // Binding repositories
-            Bind(typeof(INhiemVuRepository)).To(typeof(NhiemVuRepository));
+            Kernel.Bind(x => 
+            {
+                x.FromAssemblyContaining(typeof(INhiemVuRepository))
+                 .SelectAllClasses()
+                 .EndingWith("Repository")
+                 .BindDefaultInterface();
+            });
 
             // Binding services
-            Bind(typeof(INhiemVuService)).To(typeof(NhiemVuService));
+            Kernel.Bind(x =>
+            {
+                x.FromAssemblyContaining(typeof(INhiemVuService))
+                 .SelectAllClasses()
+                 .EndingWith("Service")
+                 .BindDefaultInterface();
+            });
         }
     }
 }

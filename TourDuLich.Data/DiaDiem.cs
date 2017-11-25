@@ -17,6 +17,7 @@ namespace TourDuLich.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DiaDiem()
         {
+            this.ChiTietDiaDiems = new HashSet<ChiTietDiaDiem>();
             this.Tours = new HashSet<Tour>();
             this.Tours1 = new HashSet<Tour>();
             this.TourDiemThamQuans = new HashSet<TourDiemThamQuan>();
@@ -27,6 +28,8 @@ namespace TourDuLich.Data
         public string TenDiaDiem { get; set; }
         public Nullable<bool> TrangThai { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietDiaDiem> ChiTietDiaDiems { get; set; }
         public virtual TinhThanh TinhThanh { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tour> Tours { get; set; }
