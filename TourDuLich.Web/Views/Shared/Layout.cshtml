@@ -15,7 +15,7 @@
     <link href="~/Assets/template/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="~/Assets/template/lib/Ionicons/css/ionicons.css" rel="stylesheet">
     <link href="~/Assets/template/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
-    <link href="~/Assets/template/lib/rickshaw/rickshaw.min.css" rel="stylesheet">
+    @RenderSection("headerCSS", false)
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="~/Assets/template/css/starlight.css">
 </head>
@@ -47,16 +47,8 @@
     <script src="~/Assets/template/lib/jquery-ui/jquery-ui.js"></script>
     <script src="~/Assets/template/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
     <script src="~/Assets/template/lib/jquery.sparkline.bower/jquery.sparkline.min.js"></script>
-    <script src="~/Assets/template/lib/d3/d3.js"></script>
-    <script src="~/Assets/template/lib/rickshaw/rickshaw.min.js"></script>
-    <script src="~/Assets/template/lib/chart.js/Chart.js"></script>
-    <script src="~/Assets/template/lib/Flot/jquery.flot.js"></script>
-    <script src="~/Assets/template/lib/Flot/jquery.flot.pie.js"></script>
-    <script src="~/Assets/template/lib/Flot/jquery.flot.resize.js"></script>
-    <script src="~/Assets/template/lib/flot-spline/jquery.flot.spline.js"></script>
-
+    @RenderSection("footerJS", false)
     <script src="~/Assets/template/js/starlight.js"></script>
     <script src="~/Assets/template/js/ResizeSensor.js"></script>
-    <script src="~/Assets/template/js/dashboard.js"></script>
 </body>
 </html>

@@ -502,6 +502,8 @@
     <Content Include="Views\Shared\RightPanel.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Home\ThongKe.cshtml" />
+    <None Include="Views\Home\DangKy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TourDuLich.Data\TourDuLich.Data.csproj">
