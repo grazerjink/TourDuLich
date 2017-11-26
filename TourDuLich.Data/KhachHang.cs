@@ -27,11 +27,12 @@ namespace TourDuLich.Data
         public string SoDienThoai { get; set; }
         public string CMND { get; set; }
         public string Passport { get; set; }
-        public string QuocTich { get; set; }
+        public Nullable<int> MaQuocTich { get; set; }
         public string DiaChi { get; set; }
         public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BangDangKy> BangDangKies { get; set; }
+        public virtual QuocTich QuocTich { get; set; }
     }
 }

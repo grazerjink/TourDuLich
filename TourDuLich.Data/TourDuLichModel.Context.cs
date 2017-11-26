@@ -41,6 +41,7 @@ namespace TourDuLich.Data
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<NhiemVu> NhiemVus { get; set; }
         public virtual DbSet<PhanCong> PhanCongs { get; set; }
+        public virtual DbSet<QuocTich> QuocTiches { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThoiGianTour> ThoiGianTours { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }

@@ -171,11 +171,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartUp.DI.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Extensions\EntityExtension.cs" />
+    <Compile Include="Filters\KhachHangActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
+    <Compile Include="Models\KhachHangViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -424,7 +428,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConnectionString.config">
@@ -502,8 +505,8 @@
     <Content Include="Views\Shared\RightPanel.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
-    <Content Include="Views\Home\ThongKe.cshtml" />
-    <None Include="Views\Home\DangKy.cshtml" />
+    <Content Include="Views\KhachHang\ThongKe.cshtml" />
+    <None Include="Views\KhachHang\DangKy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TourDuLich.Data\TourDuLich.Data.csproj">

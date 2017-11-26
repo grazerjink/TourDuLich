@@ -11,19 +11,5 @@ namespace TourDuLich.Web.Controllers
         {
             return View();
         }
-        
-        [Route("dang-ky")]
-        // GET: Home
-        public ActionResult DangKy()
-        {
-            return View();
-        }
-        
-        [Route("thong-ke")]
-        // GET: Home
-        public ActionResult ThongKe()
-        {
-            return View();
-        }
     }
 }

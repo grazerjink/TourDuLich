@@ -85,8 +85,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaTour" Type="int" />
-          <Property Name="ThoiGianBatDau" Type="date" />
-          <Property Name="ThoiGianKetThuc" Type="date" />
+          <Property Name="ThoiGianBatDau" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThoiGianKetThuc" Type="nvarchar" MaxLength="50" />
           <Property Name="GiaTien" Type="float" />
           <Property Name="TrangThai" Type="bit" />
         </EntityType>
@@ -101,7 +101,7 @@
           <Property Name="SoDienThoai" Type="nvarchar" MaxLength="11" />
           <Property Name="CMND" Type="nvarchar" MaxLength="12" />
           <Property Name="Passport" Type="nvarchar" MaxLength="50" />
-          <Property Name="QuocTich" Type="nvarchar" MaxLength="250" />
+          <Property Name="MaQuocTich" Type="int" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="250" />
           <Property Name="TrangThai" Type="bit" />
         </EntityType>
@@ -156,6 +156,13 @@
           <Property Name="MaNhanVien" Type="int" />
           <Property Name="MaNhiemVu" Type="int" />
         </EntityType>
+        <EntityType Name="QuocTich">
+          <Key>
+            <PropertyRef Name="MaQuocTich" />
+          </Key>
+          <Property Name="MaQuocTich" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenQuocTich" Type="nvarchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -191,8 +198,6 @@
           <Property Name="MaTour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaLoaiHinh" Type="int" />
           <Property Name="TenTour" Type="nvarchar" MaxLength="500" />
-          <Property Name="DiemKhoiHanh" Type="int" />
-          <Property Name="DiemKetThuc" Type="int" />
           <Property Name="SoNgay" Type="int" />
           <Property Name="SoDem" Type="int" />
           <Property Name="TrangThai" Type="bit" />
@@ -286,6 +291,18 @@
             </Principal>
             <Dependent Role="BangDangKy">
               <PropertyRef Name="MaThoiGian" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KhachHang_QuocTich">
+          <End Role="QuocTich" Type="Self.QuocTich" Multiplicity="0..1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuocTich">
+              <PropertyRef Name="MaQuocTich" />
+            </Principal>
+            <Dependent Role="KhachHang">
+              <PropertyRef Name="MaQuocTich" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -409,30 +426,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tour_DiaDiem2">
-          <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DiaDiem">
-              <PropertyRef Name="MaDiaDiem" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="DiemKhoiHanh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tour_DiaDiem3">
-          <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DiaDiem">
-              <PropertyRef Name="MaDiaDiem" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="DiemKetThuc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tour_LoaiHinhDuLich1">
           <End Role="LoaiHinhDuLich" Type="Self.LoaiHinhDuLich" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
@@ -485,6 +478,7 @@
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhiemVu" EntityType="Self.NhiemVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhanCong" EntityType="Self.PhanCong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuocTich" EntityType="Self.QuocTich" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThoiGianTour" EntityType="Self.ThoiGianTour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
@@ -517,6 +511,10 @@
           <AssociationSet Name="FK_KhachDangKy_ThoiGian" Association="Self.FK_KhachDangKy_ThoiGian">
             <End Role="ThoiGianTour" EntitySet="ThoiGianTour" />
             <End Role="BangDangKy" EntitySet="BangDangKy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhachHang_QuocTich" Association="Self.FK_KhachHang_QuocTich">
+            <End Role="QuocTich" EntitySet="QuocTich" />
+            <End Role="KhachHang" EntitySet="KhachHang" />
           </AssociationSet>
           <AssociationSet Name="FK_LichTrinh_ChiPhiAnUong" Association="Self.FK_LichTrinh_ChiPhiAnUong">
             <End Role="ChiPhiAnUong" EntitySet="ChiPhiAnUong" />
@@ -557,14 +555,6 @@
           <AssociationSet Name="FK_ThoiGianTour_Tour" Association="Self.FK_ThoiGianTour_Tour">
             <End Role="Tour" EntitySet="Tour" />
             <End Role="ThoiGianTour" EntitySet="ThoiGianTour" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tour_DiaDiem2" Association="Self.FK_Tour_DiaDiem2">
-            <End Role="DiaDiem" EntitySet="DiaDiem" />
-            <End Role="Tour" EntitySet="Tour" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tour_DiaDiem3" Association="Self.FK_Tour_DiaDiem3">
-            <End Role="DiaDiem" EntitySet="DiaDiem" />
-            <End Role="Tour" EntitySet="Tour" />
           </AssociationSet>
           <AssociationSet Name="FK_Tour_LoaiHinhDuLich1" Association="Self.FK_Tour_LoaiHinhDuLich1">
             <End Role="LoaiHinhDuLich" EntitySet="LoaiHinhDuLich" />
@@ -657,8 +647,6 @@
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="ChiTietDiaDiems" Relationship="Self.FK_ChiTietDiaDiem_DiaDiem" FromRole="DiaDiem" ToRole="ChiTietDiaDiem" />
           <NavigationProperty Name="TinhThanh" Relationship="Self.FK_DiaDiem_TinhThanh" FromRole="DiaDiem" ToRole="TinhThanh" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tour_DiaDiem2" FromRole="DiaDiem" ToRole="Tour" />
-          <NavigationProperty Name="Tours1" Relationship="Self.FK_Tour_DiaDiem3" FromRole="DiaDiem" ToRole="Tour" />
           <NavigationProperty Name="TourDiemThamQuans" Relationship="Self.FK_TourDiemThamQuan_DiaDiem" FromRole="DiaDiem" ToRole="TourDiemThamQuan" />
         </EntityType>
         <EntityType Name="DoanDuLich">
@@ -682,8 +670,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaTour" Type="Int32" />
-          <Property Name="ThoiGianBatDau" Type="DateTime" Precision="0" />
-          <Property Name="ThoiGianKetThuc" Type="DateTime" Precision="0" />
+          <Property Name="ThoiGianBatDau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGianKetThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GiaTien" Type="Double" />
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_GiaTour_Tour" FromRole="GiaTour" ToRole="Tour" />
@@ -699,10 +687,11 @@
           <Property Name="SoDienThoai" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
           <Property Name="CMND" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="QuocTich" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MaQuocTich" Type="Int32" />
           <Property Name="DiaChi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="BangDangKies" Relationship="Self.FK_KhachDangKy_KhachHang" FromRole="KhachHang" ToRole="BangDangKy" />
+          <NavigationProperty Name="QuocTich" Relationship="Self.FK_KhachHang_QuocTich" FromRole="KhachHang" ToRole="QuocTich" />
         </EntityType>
         <EntityType Name="LichTrinh">
           <Key>
@@ -767,6 +756,14 @@
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_PhanCong_NhanVien" FromRole="PhanCong" ToRole="NhanVien" />
           <NavigationProperty Name="NhiemVu" Relationship="Self.FK_PhanCong_NhiemVu" FromRole="PhanCong" ToRole="NhiemVu" />
         </EntityType>
+        <EntityType Name="QuocTich">
+          <Key>
+            <PropertyRef Name="MaQuocTich" />
+          </Key>
+          <Property Name="MaQuocTich" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenQuocTich" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KhachHangs" Relationship="Self.FK_KhachHang_QuocTich" FromRole="QuocTich" ToRole="KhachHang" />
+        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -806,13 +803,9 @@
           <Property Name="MaTour" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaLoaiHinh" Type="Int32" />
           <Property Name="TenTour" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="DiemKhoiHanh" Type="Int32" />
-          <Property Name="DiemKetThuc" Type="Int32" />
           <Property Name="SoNgay" Type="Int32" />
           <Property Name="SoDem" Type="Int32" />
           <Property Name="TrangThai" Type="Boolean" />
-          <NavigationProperty Name="DiaDiem" Relationship="Self.FK_Tour_DiaDiem2" FromRole="Tour" ToRole="DiaDiem" />
-          <NavigationProperty Name="DiaDiem1" Relationship="Self.FK_Tour_DiaDiem3" FromRole="Tour" ToRole="DiaDiem" />
           <NavigationProperty Name="GiaTours" Relationship="Self.FK_GiaTour_Tour" FromRole="Tour" ToRole="GiaTour" />
           <NavigationProperty Name="LoaiHinhDuLich" Relationship="Self.FK_Tour_LoaiHinhDuLich1" FromRole="Tour" ToRole="LoaiHinhDuLich" />
           <NavigationProperty Name="ThoiGianTours" Relationship="Self.FK_ThoiGianTour_Tour" FromRole="Tour" ToRole="ThoiGianTour" />
@@ -948,30 +941,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tour_DiaDiem2">
-          <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DiaDiem">
-              <PropertyRef Name="MaDiaDiem" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="DiemKhoiHanh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tour_DiaDiem3">
-          <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DiaDiem">
-              <PropertyRef Name="MaDiaDiem" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="DiemKetThuc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TourDiemThamQuan_DiaDiem">
           <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="0..1" />
           <End Role="TourDiemThamQuan" Type="Self.TourDiemThamQuan" Multiplicity="*" />
@@ -1029,6 +998,18 @@
             </Principal>
             <Dependent Role="GiaTour">
               <PropertyRef Name="MaTour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KhachHang_QuocTich">
+          <End Role="QuocTich" Type="Self.QuocTich" Multiplicity="0..1" />
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuocTich">
+              <PropertyRef Name="MaQuocTich" />
+            </Principal>
+            <Dependent Role="KhachHang">
+              <PropertyRef Name="MaQuocTich" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1108,6 +1089,7 @@
           <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
           <EntitySet Name="NhiemVus" EntityType="Self.NhiemVu" />
           <EntitySet Name="PhanCongs" EntityType="Self.PhanCong" />
+          <EntitySet Name="QuocTiches" EntityType="Self.QuocTich" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="ThoiGianTours" EntityType="Self.ThoiGianTour" />
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
@@ -1153,14 +1135,6 @@
             <End Role="TinhThanh" EntitySet="TinhThanhs" />
             <End Role="DiaDiem" EntitySet="DiaDiems" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tour_DiaDiem2" Association="Self.FK_Tour_DiaDiem2">
-            <End Role="DiaDiem" EntitySet="DiaDiems" />
-            <End Role="Tour" EntitySet="Tours" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tour_DiaDiem3" Association="Self.FK_Tour_DiaDiem3">
-            <End Role="DiaDiem" EntitySet="DiaDiems" />
-            <End Role="Tour" EntitySet="Tours" />
-          </AssociationSet>
           <AssociationSet Name="FK_TourDiemThamQuan_DiaDiem" Association="Self.FK_TourDiemThamQuan_DiaDiem">
             <End Role="DiaDiem" EntitySet="DiaDiems" />
             <End Role="TourDiemThamQuan" EntitySet="TourDiemThamQuans" />
@@ -1180,6 +1154,10 @@
           <AssociationSet Name="FK_GiaTour_Tour" Association="Self.FK_GiaTour_Tour">
             <End Role="Tour" EntitySet="Tours" />
             <End Role="GiaTour" EntitySet="GiaTours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhachHang_QuocTich" Association="Self.FK_KhachHang_QuocTich">
+            <End Role="QuocTich" EntitySet="QuocTiches" />
+            <End Role="KhachHang" EntitySet="KhachHangs" />
           </AssociationSet>
           <AssociationSet Name="FK_Tour_LoaiHinhDuLich1" Association="Self.FK_Tour_LoaiHinhDuLich1">
             <End Role="LoaiHinhDuLich" EntitySet="LoaiHinhDuLiches" />
@@ -1312,7 +1290,7 @@
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="Passport" ColumnName="Passport" />
-                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="MaQuocTich" ColumnName="MaQuocTich" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
               </MappingFragment>
@@ -1374,6 +1352,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="QuocTiches">
+            <EntityTypeMapping TypeName="TourDuLichModel.QuocTich">
+              <MappingFragment StoreEntitySet="QuocTich">
+                <ScalarProperty Name="MaQuocTich" ColumnName="MaQuocTich" />
+                <ScalarProperty Name="TenQuocTich" ColumnName="TenQuocTich" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="TourDuLichModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1411,8 +1397,6 @@
                 <ScalarProperty Name="MaTour" ColumnName="MaTour" />
                 <ScalarProperty Name="MaLoaiHinh" ColumnName="MaLoaiHinh" />
                 <ScalarProperty Name="TenTour" ColumnName="TenTour" />
-                <ScalarProperty Name="DiemKhoiHanh" ColumnName="DiemKhoiHanh" />
-                <ScalarProperty Name="DiemKetThuc" ColumnName="DiemKetThuc" />
                 <ScalarProperty Name="SoNgay" ColumnName="SoNgay" />
                 <ScalarProperty Name="SoDem" ColumnName="SoDem" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />

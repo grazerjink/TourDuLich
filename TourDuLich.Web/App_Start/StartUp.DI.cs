@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using TourDuLich.Data.Infrastructure;
 using TourDuLich.Data.Repositories;
 using TourDuLich.Service.Businesses;
+using TourDuLich.Web.Filters;
 
 [assembly: OwinStartup(typeof(TourDuLich.Web.App_Start.Startup))]
 
@@ -23,7 +24,10 @@ namespace TourDuLich.Web.App_Start
         private void ConfigAutofac(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+
+            builder.RegisterFilterProvider();
+            builder.RegisterType<KhachHangActionFilter>().PropertiesAutowired();
+            builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
@@ -37,7 +41,6 @@ namespace TourDuLich.Web.App_Start
             builder.RegisterAssemblyTypes(typeof(NhiemVuService).Assembly)
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
-
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

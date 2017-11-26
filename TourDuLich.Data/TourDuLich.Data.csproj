@@ -100,6 +100,9 @@
       <DependentUpon>TourDuLichModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuocTich.cs">
+      <DependentUpon>TourDuLichModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\BangDangKyRepository.cs" />
     <Compile Include="Repositories\ChiPhiAnUongRepository.cs" />
     <Compile Include="Repositories\ChiPhiKhachSanRepository.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Repositories\DoanDuLichRepository.cs" />
     <Compile Include="Repositories\GiaTourRepository.cs" />
     <Compile Include="Repositories\KhachHangRepository.cs" />
+    <Compile Include="Repositories\QuocTichRepository.cs" />
     <Compile Include="Repositories\LichTrinhRepository.cs" />
     <Compile Include="Repositories\LoaiHinhDuLichRepository.cs" />
     <Compile Include="Repositories\NhanVienRepository.cs" />

@@ -25,14 +25,10 @@ namespace TourDuLich.Data
         public int MaTour { get; set; }
         public Nullable<int> MaLoaiHinh { get; set; }
         public string TenTour { get; set; }
-        public Nullable<int> DiemKhoiHanh { get; set; }
-        public Nullable<int> DiemKetThuc { get; set; }
         public Nullable<int> SoNgay { get; set; }
         public Nullable<int> SoDem { get; set; }
         public Nullable<bool> TrangThai { get; set; }
     
-        public virtual DiaDiem DiaDiem { get; set; }
-        public virtual DiaDiem DiaDiem1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaTour> GiaTours { get; set; }
         public virtual LoaiHinhDuLich LoaiHinhDuLich { get; set; }

@@ -6,8 +6,8 @@ namespace TourDuLich.Win
 {
     public partial class Form1 : Form
     {
-        private INhiemVuService nhiemVuService;
-        private INhanVienService nhanVienService;
+        INhiemVuService nhiemVuService;
+        INhanVienService nhanVienService;
 
         public Form1(INhiemVuService nhiemVuService, INhanVienService nhanVienService)
         {

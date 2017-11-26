@@ -12,24 +12,18 @@ namespace TourDuLich.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class DiaDiem
+    public partial class QuocTich
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DiaDiem()
+        public QuocTich()
         {
-            this.ChiTietDiaDiems = new HashSet<ChiTietDiaDiem>();
-            this.TourDiemThamQuans = new HashSet<TourDiemThamQuan>();
+            this.KhachHangs = new HashSet<KhachHang>();
         }
     
-        public int MaDiaDiem { get; set; }
-        public Nullable<int> MaTinhThanh { get; set; }
-        public string TenDiaDiem { get; set; }
-        public Nullable<bool> TrangThai { get; set; }
+        public int MaQuocTich { get; set; }
+        public string TenQuocTich { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDiaDiem> ChiTietDiaDiems { get; set; }
-        public virtual TinhThanh TinhThanh { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TourDiemThamQuan> TourDiemThamQuans { get; set; }
+        public virtual ICollection<KhachHang> KhachHangs { get; set; }
     }
 }
