@@ -18,5 +18,7 @@ namespace TourDuLich.Web.Models
         public bool TrangThai { get; set; }
 
         public QuocTich QuocTich { get; set; }
+        public Tour Tour { get; set; }
+        public ThoiGianTour ThoiGianTour { get; set; }
     }
 }

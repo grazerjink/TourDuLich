@@ -10,6 +10,7 @@ namespace TourDuLich.Web.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             filterContext.Controller.ViewBag.QuocTichSelectList = new SelectList(khachHangService.GetAllListQuocTich(), "MaQuocTich", "TenQuocTich");
+            filterContext.Controller.ViewBag.TourSelectList = new SelectList(khachHangService.GetAllListTour(), "MaTour", "TenTour");
         }
     }
 }

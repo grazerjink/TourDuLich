@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Businesses\TourService.cs" />
     <Compile Include="ResultState.cs" />
     <Compile Include="Businesses\KhachHangService.cs" />
     <Compile Include="Businesses\TinhThanhService.cs" />

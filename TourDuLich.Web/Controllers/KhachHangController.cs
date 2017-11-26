@@ -62,5 +62,29 @@ namespace TourDuLich.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("xoa-khach-hang/{id}")]
+        // GET: Home
+        public ActionResult XoaKhachHang(int id)
+        {
+            var sessionList = Session["dsKhachHang"] as List<KhachHangViewModel>;
+            sessionList.RemoveAll(x => x.MaKhachHang == id);
+            return RedirectToAction("DangKy");
+        }
+
+        [Route("dang-ky-tour")]
+        public ActionResult DangKyTour(KhachHangViewModel khachHangVM)
+        {
+            // Xử lý thêm gán tour cho từng khách hàng
+            // Rồi tạo đoàn của tour đó
+            return RedirectToAction("DangKy");
+        }
+
+
+        [Route("lay-thoi-gian-tour")]
+        public JsonResult LayThoiGianTheoTour(int MaTour)
+        {
+            return Json(khachHangService.GetListTimeByTour(MaTour), JsonRequestBehavior.AllowGet);
+        }
     }
 }

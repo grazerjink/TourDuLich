@@ -21,6 +21,17 @@
     <link href="~/Assets/template/lib/highlightjs/github.css" rel="stylesheet">
     <link href="~/Assets/template/lib/datatables/jquery.dataTables.css" rel="stylesheet">
     <link href="~/Assets/template/lib/select2/css/select2.min.css" rel="stylesheet">
+    <style>
+        select.ui-datepicker-month {
+            width: 80px;
+            padding: 2px 0;
+        }
+        select.ui-datepicker-year {
+            width: 80px;
+            padding: 2px 0;
+            margin-left: 5px;
+        }
+    </style>
 }
 @section footerJS {
     <script src="~/Assets/template/lib/highlightjs/highlight.pack.js"></script>
@@ -39,6 +50,34 @@
                 }
             });
             $("select option:first-child").attr("disabled", "disabled");
+
+            // Datepicker
+            $('.fc-datepicker').datepicker({
+                dateFormat: "dd / mm / yy",
+                yearRange: "1930:2030",
+                changeMonth: true,
+                changeYear: true,
+                showOtherMonths: true,
+                selectOtherMonths: true
+            });
+
+            $("#Tour_MaTour").change(function () {
+                $.ajax({
+                    url: "/lay-thoi-gian-tour",
+                    dataType: "json",
+                    data: {
+                        MaTour: $(this).val()
+                    },
+                    success: function (data) {
+                        var optionHTML = "<option selected disabled>Chọn thời gian</option>"
+                        $.each(data, function (i, item) {
+                            optionHTML += "<option value='"+item.MaThoiGian+"'>"+item.ThoiGian+"</option>"
+                        });
+                        $("#ThoiGianTour_MaThoiGianTour").html(optionHTML);
+                    }
+                });
+            });
+            $("#Tour_MaTour").change();
         });
     </script>
 }
@@ -52,7 +91,7 @@
         <p class="mg-b-20 mg-sm-b-20"></p>
         
     <div class="form-layout">
-            @using (Html.BeginForm("DangKy", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
+            @using (Html.BeginForm("LuuThongTin", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="row mg-b-25">
@@ -74,7 +113,10 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Ngày sinh: <span class="tx-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.NgaySinh, new { @class = "form-control", placeholder = "Nhập vào ngày tháng năm sinh"})
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                                    @Html.TextBoxFor(m => m.NgaySinh, new { @class = "form-control fc-datepicker", placeholder = "Nhập vào ngày tháng năm sinh" })
+                                </div>                               
                             </div>
                         </div><!-- col-4 -->
                         <div class="col-lg-4">
@@ -121,7 +163,7 @@
                     </div>                
                 </div><!-- row -->
             }
-            <div style="margin-top:50px;">
+            <div style="margin-top:50px; margin-bottom:50px;">
                 <h6 class="card-body-title">Thông tin khách hàng đã thêm</h6>
                 <div class="table-wrapper">
                     <table id="tableKhachHang" class="table display responsive">
@@ -159,12 +201,39 @@
                     </table>
                 </div><!-- table-wrapper -->
             </div>
-
-            <div class="form-layout-footer" style="margin-top: 50px;">
-                <a href="/chon-tour/" class="btn btn-info mg-r-5">Chọn tour du lịch</a>
-                <a href="/lam-moi-phien-lam-viec/" class="btn btn-secondary">Làm mới</a>
-                <a href="/" class="btn btn-secondary">Trở về</a>
-            </div><!-- form-layout-footer -->
+            
+            @using (Html.BeginForm("DangKyTour", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row mg-b-25">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Tour du lịch: <span class="tx-danger">*</span></label>
+                            @Html.DropDownListFor(m => m.Tour.MaTour, ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Thời gian: <span class="tx-danger">*</span></label>
+                            <select id="ThoiGianTour_MaThoiGianTour" name="ThoiGianTour.MaThoiGianTour" class = "form-control select2">
+                                <option selected disabled>Chọn thời gian</option>
+                            </select>
+                        </div>
+                    </div><!-- col-4 -->       
+                    <div class="col-lg-6 pull-right">
+                        <div class="form-group" style="margin-top: 20px;">
+                            @Html.ValidationSummary()
+                            <span class="tour-error">@ViewBag.Error</span>
+                            <span class="tour-error">@ViewBag.Success</span>
+                        </div>
+                    </div><!-- col-6 -->
+                </div><!-- row -->
+                <div class="form-layout-footer" style="margin-top: 50px;">
+                    <input type="submit" href="/dang-ky-tour/" class="btn btn-info mg-r-5" value="Đăng ký">
+                    <a href="/lam-moi-phien-lam-viec/" class="btn btn-secondary mg-r-5">Làm mới</a>
+                    <a href="/" class="btn btn-secondary">Trở về</a>
+                </div><!-- form-layout-footer -->
+            }            
         </div><!-- form-layout -->
     </div><!-- card -->
 </div><!-- sl-pagebody -->
