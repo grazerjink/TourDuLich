@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "LapDoanDuLich";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var successMessage = (string)TempData["Success"];
+    var errorMessage = (string)TempData["Error"];
+    var listKhachHang = ViewBag.dsDangKy as List<TourDuLich.Data.BangDangKy>;
+}
+
+@section headerCSS {
+    <link href="~/Assets/template/lib/highlightjs/github.css" rel="stylesheet">
+    <link href="~/Assets/template/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+    <link href="~/Assets/template/lib/select2/css/select2.min.css" rel="stylesheet">
+    <style>
+        select.ui-datepicker-month {
+            width: 80px;
+            padding: 2px 0;
+        }
+
+        select.ui-datepicker-year {
+            width: 80px;
+            padding: 2px 0;
+            margin-left: 5px;
+        }
+
+        table.dataTable tbody tr {
+            background-color: #efefef;
+        }
+    </style>
+}
+@section footerJS {
+    <script src="~/Assets/template/lib/highlightjs/highlight.pack.js"></script>
+    <script src="~/Assets/template/lib/datatables/jquery.dataTables.js"></script>
+    <script src="~/Assets/template/lib/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="~/Assets/template/lib/select2/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $('#tableKhachHang').DataTable({
+                bLengthChange: false,
+                searching: true,
+                responsive: true,
+                language: {
+                    searchPlaceholder: 'Search...',
+                    sSearch: ''
+                }
+            });
+            $("select option:first-child").attr("disabled", "disabled");
+
+            $("#MaTour").change(function () {
+                $.ajax({
+                    url: "/lay-thoi-gian-tour",
+                    dataType: "json",
+                    data: {
+                        MaTour: $(this).val()
+                    },
+                    success: function (data) {
+                        var optionHTML = "<option selected disabled>Chọn thời gian</option>"
+                        $.each(data, function (i, item) {
+                            optionHTML += "<option value='" + item.MaThoiGian + "'>" + item.ThoiGian + "</option>"
+                        });
+                        $("#MaThoiGianTour").html(optionHTML);
+                    }
+                });
+            });
+
+            $("#check-all").change(function () {
+                if($(this).is(":checked"))
+                    $(".item-check").prop("checked", true);
+                else
+                    $(".item-check").prop("checked", false);                
+            });
+        });
+
+        @if(successMessage != null && successMessage.Length != 0)
+        {
+            @:showSuccessToast("@successMessage");
+        }
+        @if(errorMessage != null && errorMessage.Length != 0)
+        {
+            @:showErrorToast("@errorMessage");
+        }
+    </script>
+}
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="/">KJ Tourist</a>
+    <span class="breadcrumb-item active">Lập đoàn du lịch</span>
+</nav>
+<div class="sl-pagebody">
+    <div class="card pd-20 pd-sm-40 mg-t-50">
+        <h6 class="card-body-title">Danh sách đăng ký</h6>
+
+        <form class="form-layout" method="post" action="/lay-danh-sach-dang-ky">
+            <div class="row mg-b-25">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Tour du lịch: <span class="tx-danger">*</span></label>
+                        @Html.DropDownList("MaTour", ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
+                    </div>
+                </div><!-- col-4 -->
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Thời gian: <span class="tx-danger">*</span></label>
+                        @if (ViewBag.ThoiGianTourSelectList == null)
+                        {
+                            <select id="MaThoiGianTour" name="MaThoiGianTour" class="form-control select2">
+                                <option selected disabled>Chọn thời gian</option>
+                            </select>
+                        }
+                        else
+                        {
+                            @Html.DropDownList("MaThoiGianTour", ViewBag.ThoiGianTourSelectList as SelectList, "Chọn thời gian", new { @class = "form-control select2" })
+                        }
+                    </div>
+                </div><!-- col-4 -->
+                <div class="col-lg-6">
+                    <div class="form-group form-layout-footer" style="margin-top: 20px;">
+                        <input type="submit" class="btn btn-info mg-r-5" value="Lấy danh sách đăng ký">
+                        <a href="/" class="btn btn-secondary">Trở về</a>
+                    </div>
+                </div><!-- col-6 -->
+                <div class="col-lg-6 pull-right">
+                    <div class="form-group" style="margin-top: 20px;">
+                        @Html.ValidationSummary()
+                        <span class="tour-error">@ViewBag.Error</span>
+                        <span class="tour-error">@ViewBag.Success</span>
+                    </div>
+                </div><!-- col-6 -->
+            </div><!-- row -->
+        </form>
+
+        <div class="table-responsive" style="margin-bottom:50px;">
+            <table id="tableKhachHang" class="table responsive table-hover table-bordered mg-b-0">
+                <thead>
+                    <tr>
+                        <th class="wd-5p">
+                            <label class="ckbox mg-b-0">
+                                <input id="check-all" type="checkbox"><span></span>
+                            </label>
+                        </th>
+                        <th class="wd-15p">Họ tên</th>
+                        <th class="wd-5p">Giới tính</th>
+                        <th class="wd-10p">Ngày sinh</th>
+                        <th class="wd-10p">CMND / Passport</th>
+                        <th class="wd-10p">Điện thoại</th>
+                        <th class="wd-10p">Tên công ty</th>
+                        <th class="wd-10p">Thời gian</th>
+                        <th class="wd-15p">Tour</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (listKhachHang != null)
+                    {
+                        foreach (var kh in listKhachHang)
+                        {
+                        <tr>
+                            <td>
+                                <label class="ckbox mg-b-0">
+                                    <input class="item-check" type="checkbox"><span></span>
+                                </label>
+                            </td>
+                            <td>@kh.KhachHang.HoTen</td>
+                            <td>@if (kh.KhachHang.GioiTinh == true){ @("Nam") }else{ @("Nữ") }</td>
+                            <td>@kh.KhachHang.NgaySinh.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@kh.KhachHang.CMND @kh.KhachHang.Passport</td>
+                            <td>@kh.KhachHang.SoDienThoai</td>
+                            <td>@kh.KhachHang.TenCongTy</td>
+                            <td>@kh.ThoiGianTour.NgayDi.Value.ToString("dd/MM/yyyy") - @kh.ThoiGianTour.NgayVe.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@kh.ThoiGianTour.Tour.TenTour</td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div><!-- table-responsive -->
+
+        @using (Html.BeginForm("DangKyTour", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row mg-b-25">
+                <div class="col-lg-10">
+                    <div class="form-group">
+                        <label class="form-control-label">Đoàn hiện đang có: <span class="tx-danger">*</span></label>
+                        @Html.DropDownList("MaTour", ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
+                    </div>
+                </div><!-- col-4 -->
+                <div class="col-lg-2">
+                    <div class="form-group" style="margin-top: 30px;">
+                        <a href="/lam-moi-phien-lam-viec/" class="btn btn-teal mg-r-5 pull-right">Ghép đoàn đã chọn</a>
+                    </div>
+                </div><!-- col-4 -->
+                <div class="col-lg-6">
+                    <div class="form-group" style="margin-top: 20px;">
+                        @Html.ValidationSummary()
+                        <span class="tour-error">@ViewBag.Error</span>
+                        <span class="tour-error">@ViewBag.Success</span>
+                    </div>
+                </div><!-- col-6 -->
+            </div><!-- row -->
+            <div class="form-layout-footer" style="margin-top: 50px;">
+                <button class="btn btn-info mg-r-5">Thêm danh sách vào đoàn mới</button>
+                <a href="/" class="btn btn-secondary">Trở về</a>                
+            </div><!-- form-layout-footer -->
+        }        
+    </div><!-- card -->
+</div><!-- sl-pagebody -->

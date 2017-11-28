@@ -103,6 +103,7 @@
           <Property Name="Passport" Type="nvarchar" MaxLength="50" />
           <Property Name="MaQuocTich" Type="int" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="250" />
+          <Property Name="TenCongTy" Type="nvarchar" MaxLength="250" />
           <Property Name="TrangThai" Type="bit" />
         </EntityType>
         <EntityType Name="LichTrinh">
@@ -689,6 +690,7 @@
           <Property Name="Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaQuocTich" Type="Int32" />
           <Property Name="DiaChi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TenCongTy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="BangDangKies" Relationship="Self.FK_KhachDangKy_KhachHang" FromRole="KhachHang" ToRole="BangDangKy" />
           <NavigationProperty Name="QuocTich" Relationship="Self.FK_KhachHang_QuocTich" FromRole="KhachHang" ToRole="QuocTich" />
@@ -1292,6 +1294,7 @@
                 <ScalarProperty Name="Passport" ColumnName="Passport" />
                 <ScalarProperty Name="MaQuocTich" ColumnName="MaQuocTich" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TenCongTy" ColumnName="TenCongTy" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
               </MappingFragment>
             </EntityTypeMapping>

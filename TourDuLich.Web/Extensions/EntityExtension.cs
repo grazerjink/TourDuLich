@@ -19,6 +19,7 @@ namespace TourDuLich.Web.Extensions
             khachHang.MaQuocTich = viewModel.MaQuocTich;
             khachHang.NgaySinh = viewModel.NgaySinh;
             khachHang.SoDienThoai = viewModel.SoDienThoai;
+            khachHang.TenCongTy = viewModel.TenCongTy;
             khachHang.TrangThai = viewModel.TrangThai;
         }
     }

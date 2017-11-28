@@ -48,6 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Businesses\BangDangKyService.cs" />
+    <Compile Include="Businesses\DoanDuLichService.cs" />
+    <Compile Include="Businesses\ThoiGianTourService.cs" />
+    <Compile Include="Businesses\QuocTichService.cs" />
     <Compile Include="Businesses\TourService.cs" />
     <Compile Include="ResultState.cs" />
     <Compile Include="Businesses\KhachHangService.cs" />

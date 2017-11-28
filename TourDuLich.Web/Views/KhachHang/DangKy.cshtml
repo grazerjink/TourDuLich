@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Layout.cshtml";
+    var successMessage = (string)TempData["Success"];
+    var errorMessage = (string)TempData["Error"];
     var listKhachHang = Session["dsKhachHang"] as List<TourDuLich.Web.Models.KhachHangViewModel>;
     SelectList GioiTinhSelectList = new SelectList(new List<SelectListItem>
     {
@@ -38,7 +40,7 @@
     <script src="~/Assets/template/lib/datatables/jquery.dataTables.js"></script>
     <script src="~/Assets/template/lib/datatables-responsive/dataTables.responsive.js"></script>
     <script src="~/Assets/template/lib/select2/js/select2.min.js"></script>
-    <script>   
+    <script>
         $(function () {
             $('#tableKhachHang').DataTable({
                 bLengthChange: false,
@@ -50,7 +52,6 @@
                 }
             });
             $("select option:first-child").attr("disabled", "disabled");
-
             // Datepicker
             $('.fc-datepicker').datepicker({
                 dateFormat: "dd / mm / yy",
@@ -60,8 +61,7 @@
                 showOtherMonths: true,
                 selectOtherMonths: true
             });
-
-            $("#Tour_MaTour").change(function () {
+            $("#MaTour").change(function () {
                 $.ajax({
                     url: "/lay-thoi-gian-tour",
                     dataType: "json",
@@ -77,8 +77,33 @@
                     }
                 });
             });
-            $("#Tour_MaTour").change();
+            $("#MaTour").change();
+
+            $(".kh-remove").on("click", function () {
+                var makh = $(this).attr("data-ma-kh");
+                $.ajax({
+                    url: "/xoa-khach-hang",
+                    data: {
+                        id: makh
+                    },
+                    success: function (res) {
+                    }
+                });
+                $(this).parents("tr").hide(300, function () {
+                    $(this).remove();
+                });
+            });
+
         });
+
+        @if(successMessage != null && successMessage.Length != 0)
+        {
+            @:showSuccessToast("@successMessage");
+        }
+        @if(errorMessage != null && errorMessage.Length != 0)
+        {
+            @:showErrorToast("@errorMessage");
+        }
     </script>
 }
 <nav class="breadcrumb sl-breadcrumb">
@@ -90,69 +115,136 @@
         <h6 class="card-body-title">Thông tin khách hàng</h6>
         <p class="mg-b-20 mg-sm-b-20"></p>
         
-    <div class="form-layout">
-            @using (Html.BeginForm("LuuThongTin", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="row mg-b-25">
-                    <div class="row col-lg-12">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Họ và tên: <span class="tx-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.HoTen, new { @class= "form-control", placeholder = "Nhập vào họ tên đầy đủ" })
-                            </div>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Giới tính: <span class="tx-danger">*</span></label>
-                                @Html.DropDownListFor(m => m.GioiTinh, GioiTinhSelectList, "Chọn giới tính", new { @class = "form-control select2"})
-                            </div>
-                        </div><!-- col-4 -->
-                    </div>
-                    <div class="row col-lg-12">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Ngày sinh: <span class="tx-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
-                                    @Html.TextBoxFor(m => m.NgaySinh, new { @class = "form-control fc-datepicker", placeholder = "Nhập vào ngày tháng năm sinh" })
-                                </div>                               
-                            </div>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Số CMND / Passport: <span class="tx-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.SoChungMinh, new { @class = "form-control", placeholder = "Nhập vào số CMND hoặc Passport"})
-                            </div>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Số điện thoại: <span class="tx-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control", placeholder = "Nhập vào số điện thoại liên lạc" })
-                            </div>
-                        </div><!-- col-4 -->
-                    </div>                
-                    <div class="row col-lg-12">
-                        <div class="col-lg-8">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Địa chỉ: <span class="tx-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = "Nhập vào địa chỉ cư trú" })
-                            </div>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Quốc tịch: <span class="tx-danger">*</span></label>
-                                @Html.DropDownListFor(m => m.MaQuocTich, ViewBag.QuocTichSelectList as SelectList, "Chọn quốc tịch", new { @class = "form-control select2" })
-                            </div>
-                        </div><!-- col-4 -->
-                    </div>   
-                    <div class="row col-lg-12">
+        <div class="form-layout">
+                @using (Html.BeginForm("DangKyThongTin", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row mg-b-25">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Họ và tên: <span class="tx-danger">*</span></label>
+                                    @Html.TextBoxFor(m => m.HoTen, new { @class= "form-control", placeholder = "Nhập vào họ tên đầy đủ" })
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Giới tính: <span class="tx-danger">*</span></label>
+                                    @Html.DropDownListFor(m => m.GioiTinh, GioiTinhSelectList, "Chọn giới tính", new { @class = "form-control select2"})
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Ngày sinh: <span class="tx-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                                        @Html.TextBoxFor(m => m.NgaySinh, new { @class = "form-control fc-datepicker", placeholder = "Nhập vào ngày tháng năm sinh" })
+                                    </div>                               
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Số CMND / Passport: <span class="tx-danger">*</span></label>
+                                    @Html.TextBoxFor(m => m.SoChungMinh, new { @class = "form-control", placeholder = "Nhập vào số CMND hoặc Passport"})
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Số điện thoại: <span class="tx-danger">*</span></label>
+                                    @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "form-control", placeholder = "Nhập vào số điện thoại liên lạc" })
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Tên công ty: <span class="tx-danger">*</span></label>
+                                    @Html.TextBoxFor(m => m.TenCongTy, new { @class = "form-control", placeholder = "Nhập vào tên công ty" })
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-8">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Địa chỉ: <span class="tx-danger">*</span></label>
+                                    @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = "Nhập vào địa chỉ cư trú" })
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Quốc tịch: <span class="tx-danger">*</span></label>
+                                    @Html.DropDownListFor(m => m.MaQuocTich, ViewBag.QuocTichSelectList as SelectList, "Chọn quốc tịch", new { @class = "form-control select2" })
+                                </div>
+                            </div><!-- col-4 --> 
+                            <div class="col-lg-6">
+                                <div class="form-group form-layout-footer" style="margin-top: 20px;">
+                                    <input type="submit" class="btn btn-info mg-r-5" value="Lưu thông tin">
+                                    <input type="reset" class="btn btn-secondary" value="Hủy">
+                                </div>
+                            </div><!-- col-6 -->
+                            <div class="col-lg-6 pull-right">
+                                <div class="form-group" style="margin-top: 20px;">
+                                    @Html.ValidationSummary()
+                                    <span class="tour-error">@ViewBag.Error</span>
+                                    <span class="tour-error">@ViewBag.Success</span>
+                                </div>
+                            </div><!-- col-6 -->      
+                    </div><!-- row -->
+                }
+                <div style="margin-top:50px; margin-bottom:50px;">
+                    <h6 class="card-body-title">Thông tin khách hàng đã thêm</h6>
+                    <div class="table-wrapper">
+                        <table id="tableKhachHang" class="table display responsive">
+                            <thead>
+                                <tr>
+                                    <th class="wd-15p">Họ tên</th>
+                                    <th class="wd-10p">Giới tính</th>
+                                    <th class="wd-15p">Ngày sinh</th>
+                                    <th class="wd-10p">CMND / Passport</th>
+                                    <th class="wd-10p">Điện thoại</th>
+                                    <th class="wd-15p">Tên công ty</th>
+                                    <th class="wd-15p">Địa chỉ</th>
+                                    <th class="wd-10p">Quốc tịch</th>
+                                    <th>*</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(listKhachHang != null) {
+                                    foreach (var kh in listKhachHang)
+                                    {
+                                    <tr>
+                                        <td>@kh.HoTen</td>
+                                        <td>@if(kh.GioiTinh == true){ @("Nam") } else { @("Nữ") }</td>
+                                        <td>@kh.NgaySinh.ToString("dd / MM / yyyy")</td>
+                                        <td>@kh.SoChungMinh</td>
+                                        <td>@kh.SoDienThoai</td>
+                                        <td>@kh.TenCongTy</td>
+                                        <td>@kh.DiaChi</td>
+                                        <td>@kh.QuocTich.TenQuocTich</td>
+                                        <td>
+                                            <button data-ma-kh="@kh.MaKhachHang" class="btn btn-sm btn-light text-center kh-remove"><i class="fa fa-lg fa-remove" style="color: red;"></i></button>
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- table-wrapper -->
+                </div>
+            
+                @using (Html.BeginForm("DangKyTour", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row mg-b-25">
                         <div class="col-lg-6">
-                            <div class="form-group form-layout-footer" style="margin-top: 20px;">
-                                <input type="submit" class="btn btn-info mg-r-5" value="Lưu thông tin">
-                                <input type="reset" class="btn btn-secondary" value="Hủy">
+                            <div class="form-group">
+                                <label class="form-control-label">Tour du lịch: <span class="tx-danger">*</span></label>
+                                @Html.DropDownList("MaTour", ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
                             </div>
-                        </div><!-- col-6 -->
+                        </div><!-- col-4 -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Thời gian: <span class="tx-danger">*</span></label>
+                                <select id="ThoiGianTour_MaThoiGianTour" name="ThoiGianTour.MaThoiGianTour" class = "form-control select2">
+                                    <option selected disabled>Chọn thời gian</option>
+                                </select>
+                            </div>
+                        </div><!-- col-4 -->       
                         <div class="col-lg-6 pull-right">
                             <div class="form-group" style="margin-top: 20px;">
                                 @Html.ValidationSummary()
@@ -160,80 +252,13 @@
                                 <span class="tour-error">@ViewBag.Success</span>
                             </div>
                         </div><!-- col-6 -->
-                    </div>                
-                </div><!-- row -->
-            }
-            <div style="margin-top:50px; margin-bottom:50px;">
-                <h6 class="card-body-title">Thông tin khách hàng đã thêm</h6>
-                <div class="table-wrapper">
-                    <table id="tableKhachHang" class="table display responsive">
-                        <thead>
-                            <tr>
-                                <th class="wd-15p">Họ tên</th>
-                                <th class="wd-10p">Giới tính</th>
-                                <th class="wd-15p">Ngày sinh</th>
-                                <th class="wd-10p">CMND/Passport</th>
-                                <th class="wd-10p">Điện thoại</th>
-                                <th>Địa chỉ</th>
-                                <th class="wd-10p">Quốc tịch</th>
-                                <th>*</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(listKhachHang != null) {
-                                foreach (var kh in listKhachHang)
-                                {
-                                <tr>
-                                    <td>@kh.HoTen</td>
-                                    <td>@if(kh.GioiTinh == true){ @("Nam") } else { @("Nữ") }</td>
-                                    <td>@kh.NgaySinh.ToString("dd / MM / yyyy")</td>
-                                    <td>@kh.SoChungMinh</td>
-                                    <td>@kh.SoDienThoai</td>
-                                    <td>@kh.DiaChi</td>
-                                    <td>@kh.QuocTich.TenQuocTich</td>
-                                    <td>
-                                        <a class="text-center" href="/xoa-khach-hang/@kh.MaKhachHang/"><i class="fa fa-lg fa-remove" style="color: red;"></i></a>
-                                    </td>
-                                </tr>
-                                }
-                            }
-                        </tbody>
-                    </table>
-                </div><!-- table-wrapper -->
-            </div>
-            
-            @using (Html.BeginForm("DangKyTour", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="row mg-b-25">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Tour du lịch: <span class="tx-danger">*</span></label>
-                            @Html.DropDownListFor(m => m.Tour.MaTour, ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
-                        </div>
-                    </div><!-- col-4 -->
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Thời gian: <span class="tx-danger">*</span></label>
-                            <select id="ThoiGianTour_MaThoiGianTour" name="ThoiGianTour.MaThoiGianTour" class = "form-control select2">
-                                <option selected disabled>Chọn thời gian</option>
-                            </select>
-                        </div>
-                    </div><!-- col-4 -->       
-                    <div class="col-lg-6 pull-right">
-                        <div class="form-group" style="margin-top: 20px;">
-                            @Html.ValidationSummary()
-                            <span class="tour-error">@ViewBag.Error</span>
-                            <span class="tour-error">@ViewBag.Success</span>
-                        </div>
-                    </div><!-- col-6 -->
-                </div><!-- row -->
-                <div class="form-layout-footer" style="margin-top: 50px;">
-                    <input type="submit" href="/dang-ky-tour/" class="btn btn-info mg-r-5" value="Đăng ký">
-                    <a href="/lam-moi-phien-lam-viec/" class="btn btn-secondary mg-r-5">Làm mới</a>
-                    <a href="/" class="btn btn-secondary">Trở về</a>
-                </div><!-- form-layout-footer -->
-            }            
+                    </div><!-- row -->
+                    <div class="form-layout-footer" style="margin-top: 50px;">
+                        <button class="btn btn-info mg-r-5">Đăng ký tour</button>
+                        <a href="/" class="btn btn-secondary">Trở về</a>
+                        <a href="/lam-moi-phien-lam-viec/" class="btn btn-dark mg-r-5 pull-right">Xóa phiên làm việc</a>
+                    </div><!-- form-layout-footer -->
+                }            
         </div><!-- form-layout -->
     </div><!-- card -->
 </div><!-- sl-pagebody -->

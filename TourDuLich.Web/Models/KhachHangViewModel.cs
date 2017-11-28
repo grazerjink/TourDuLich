@@ -15,10 +15,10 @@ namespace TourDuLich.Web.Models
         public string Passport { get; set; }
         public int MaQuocTich { get; set; }
         public string DiaChi { get; set; }
+        public string TenCongTy { get; set; }
         public bool TrangThai { get; set; }
 
         public QuocTich QuocTich { get; set; }
-        public Tour Tour { get; set; }
         public ThoiGianTour ThoiGianTour { get; set; }
     }
 }

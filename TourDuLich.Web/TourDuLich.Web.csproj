@@ -170,9 +170,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartUp.DI.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\DoanDuLichController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Extensions\EntityExtension.cs" />
+    <Compile Include="Filters\DoanDuLichActionFilter.cs" />
     <Compile Include="Filters\KhachHangActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,6 +186,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\js\show-toast.js" />
     <Content Include="Assets\template\css\bracket.css" />
     <Content Include="Assets\template\css\bracket.min.css" />
     <Content Include="Assets\template\css\starlight.css" />
@@ -415,6 +419,8 @@
     <Content Include="Assets\template\lib\summernote\summernote.css" />
     <Content Include="Assets\template\lib\summernote\summernote.js" />
     <Content Include="Assets\template\lib\summernote\summernote.min.js" />
+    <Content Include="Assets\vendor\toastr\toastr.min.css" />
+    <Content Include="Assets\vendor\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -428,7 +434,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConnectionString.config">
@@ -507,6 +512,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\KhachHang\ThongKe.cshtml" />
+    <Content Include="Views\DoanDuLich\LapDoanDuLich.cshtml" />
     <None Include="Views\KhachHang\DangKy.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,10 @@
 {
     public class ResultState
     {
+        public ResultState()
+        {
+        }
+
         public ResultState(bool state, string message)
         {
             Success = state;

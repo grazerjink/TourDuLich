@@ -29,6 +29,7 @@ namespace TourDuLich.Data
         public string Passport { get; set; }
         public Nullable<int> MaQuocTich { get; set; }
         public string DiaChi { get; set; }
+        public string TenCongTy { get; set; }
         public Nullable<bool> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

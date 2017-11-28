@@ -1,10 +1,13 @@
-﻿using TourDuLich.Data.Infrastructure;
+﻿using System.Collections.Generic;
+using TourDuLich.Data;
+using TourDuLich.Data.Infrastructure;
 using TourDuLich.Data.Repositories;
 
 namespace TourDuLich.Service.Businesses
 {
     public interface ITourService
     {
+        IEnumerable<Tour> GetAllListTour();
     }
 
     public class TourService : ITourService
@@ -13,11 +16,15 @@ namespace TourDuLich.Service.Businesses
         private IUnitOfWork unitOfWork;
 
         public TourService(ITourRepository tourRepository,
-                                IQuocTichRepository quocTichRepository,
                                 IUnitOfWork unitOfWork)
         {
             this.tourRepository = tourRepository;
             this.unitOfWork = unitOfWork;
+        }
+
+        public IEnumerable<Tour> GetAllListTour()
+        {
+            return tourRepository.GetAll();
         }
     }
 }
