@@ -8,7 +8,7 @@ namespace TourDuLich.Service.Businesses
 {
     public interface IThoiGianTourService
     {
-        List<object> GetListTimeByTour(int MaTour);
+        IEnumerable<object> GetListTimeByTour(int MaTour);
     }
 
     public class ThoiGianTourService : IThoiGianTourService
@@ -23,18 +23,18 @@ namespace TourDuLich.Service.Businesses
             this.unitOfWork = unitOfWork;
         }
 
-        public List<object> GetListTimeByTour(int MaTour)
+        public IEnumerable<object> GetListTimeByTour(int MaTour)
         {
-            List<object> list = new List<object>();
+            List<object> listSelect = new List<object>();
             var listThoiGian = thoiGianTourRepository.GetMulti(x => x.MaTour == MaTour && x.NgayDi > DateTime.Now).ToList();
             listThoiGian.ForEach(x => {
-                list.Add(new
+                listSelect.Add(new
                 {
                     MaThoiGian = x.MaThoiGianTour,
                     ThoiGian = x.NgayDi.Value.ToString("dd / MM / yyyy") + " -- " + x.NgayVe.Value.ToString("dd / MM / yyyy")
                 });
             });
-            return list;
+            return listSelect as IEnumerable<object>;
         }
     }
 }

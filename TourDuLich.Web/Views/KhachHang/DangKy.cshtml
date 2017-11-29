@@ -69,16 +69,21 @@
                         MaTour: $(this).val()
                     },
                     success: function (data) {
-                        var optionHTML = "<option selected disabled>Chọn thời gian</option>"
-                        $.each(data, function (i, item) {
-                            optionHTML += "<option value='"+item.MaThoiGian+"'>"+item.ThoiGian+"</option>"
-                        });
-                        $("#ThoiGianTour_MaThoiGianTour").html(optionHTML);
+                        if (jQuery.isEmptyObject(data)) {
+                            var optionHTML = "<option selected disabled>Chưa có thời gian hoạt động</option>";
+                            $("#ThoiGianTour_MaThoiGianTour").html(optionHTML);
+                        }
+                        else {
+                            var optionHTML = "<option selected disabled>Chọn thời gian</option>";
+                            $.each(data, function (i, item) {
+                                optionHTML += "<option value='" + item.MaThoiGian + "'>" + item.ThoiGian + "</option>";
+                            });
+                            $("#ThoiGianTour_MaThoiGianTour").html(optionHTML);
+                        }
+
                     }
                 });
             });
-            $("#MaTour").change();
-
             $(".kh-remove").on("click", function () {
                 var makh = $(this).attr("data-ma-kh");
                 $.ajax({

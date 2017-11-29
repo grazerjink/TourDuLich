@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using TourDuLich.Service.Businesses;
 using TourDuLich.Web.Filters;
 
@@ -11,8 +10,9 @@ namespace TourDuLich.Web.Controllers
         public IBangDangKyService bangDangKyService { get; set; }
         public ITourService tourService { get; set; }
         public IThoiGianTourService thoiGianTourService { get; set; }
+        public IDoanDuLichService doanDuLichService { get; set; }
 
-        [Route("lap-doan-du-lich")]        
+        [Route("lap-doan-du-lich")]
         public ActionResult LapDoanDuLich()
         {
             return View();
@@ -24,10 +24,23 @@ namespace TourDuLich.Web.Controllers
             if (MaTour.HasValue && MaThoiGianTour.HasValue)
             {
                 ViewBag.TourSelectList = new SelectList(tourService.GetAllListTour(), "MaTour", "TenTour", MaTour);
-                ViewBag.ThoiGianTourSelectList = new SelectList(thoiGianTourService.GetListTimeByTour(MaTour.Value) as IEnumerable<object>, "MaThoiGian", "ThoiGian", MaThoiGianTour);
+                ViewBag.ThoiGianTourSelectList = new SelectList(thoiGianTourService.GetListTimeByTour(MaTour.Value), "MaThoiGian", "ThoiGian", MaThoiGianTour);
+                ViewBag.DoanSelectList = new SelectList(doanDuLichService.GetAllListGroupTourByTime(MaThoiGianTour.Value), "MaDoanDuLich", "NoiDung");
                 ViewBag.dsDangKy = bangDangKyService.GetAllListCheckInByTime(MaThoiGianTour.Value);
             }
             return View("LapDoanDuLich");
+        }
+
+        [Route("ghep-doan")]
+        public ActionResult GhepDoan()
+        {
+            return View();
+        }
+
+        [Route("tao-doan")]
+        public ActionResult TaoDoan()
+        {
+            return View();
         }
     }
 }

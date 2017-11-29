@@ -4,6 +4,8 @@
     var successMessage = (string)TempData["Success"];
     var errorMessage = (string)TempData["Error"];
     var listKhachHang = ViewBag.dsDangKy as List<TourDuLich.Data.BangDangKy>;
+    var doanSelectList = ViewBag.DoanSelectList as IEnumerable<object>;
+    var thoiGianSelectList = ViewBag.ThoiGianTourSelectList as IEnumerable<object>;
 }
 
 @section headerCSS {
@@ -53,11 +55,20 @@
                         MaTour: $(this).val()
                     },
                     success: function (data) {
-                        var optionHTML = "<option selected disabled>Chọn thời gian</option>"
-                        $.each(data, function (i, item) {
-                            optionHTML += "<option value='" + item.MaThoiGian + "'>" + item.ThoiGian + "</option>"
-                        });
-                        $("#MaThoiGianTour").html(optionHTML);
+                        if (jQuery.isEmptyObject(data))
+                        {
+                            var optionHTML = "<option selected disabled>Chưa có thời gian hoạt động</option>";
+                            $("#MaThoiGianTour").html(optionHTML);
+                        }
+                        else
+                        {
+                            var optionHTML = "<option selected disabled>Chọn thời gian</option>";
+                            $.each(data, function (i, item) {
+                                optionHTML += "<option value='" + item.MaThoiGian + "'>" + item.ThoiGian + "</option>";
+                            });
+                            $("#MaThoiGianTour").html(optionHTML);
+                        }
+                       
                     }
                 });
             });
@@ -87,6 +98,7 @@
 <div class="sl-pagebody">
     <div class="card pd-20 pd-sm-40 mg-t-50">
         <h6 class="card-body-title">Danh sách đăng ký</h6>
+        <p class="mg-b-20 mg-sm-b-20"></p>
 
         <form class="form-layout" method="post" action="/lay-danh-sach-dang-ky">
             <div class="row mg-b-25">
@@ -99,15 +111,15 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label class="form-control-label">Thời gian: <span class="tx-danger">*</span></label>
-                        @if (ViewBag.ThoiGianTourSelectList == null)
+                        @if (thoiGianSelectList == null || !thoiGianSelectList.Any())
                         {
                             <select id="MaThoiGianTour" name="MaThoiGianTour" class="form-control select2">
-                                <option selected disabled>Chọn thời gian</option>
+                                <option selected disabled>Chưa có thời gian hoạt động</option>
                             </select>
                         }
                         else
                         {
-                            @Html.DropDownList("MaThoiGianTour", ViewBag.ThoiGianTourSelectList as SelectList, "Chọn thời gian", new { @class = "form-control select2" })
+                            @Html.DropDownList("MaThoiGianTour", thoiGianSelectList as SelectList, "Chọn thời gian", new { @class = "form-control select2" })
                         }
                     </div>
                 </div><!-- col-4 -->
@@ -171,20 +183,34 @@
                 </tbody>
             </table>
         </div><!-- table-responsive -->
-
-        @using (Html.BeginForm("DangKyTour", "KhachHang", FormMethod.Post, new { @class = "form-layout" }))
-        {
-            @Html.AntiForgeryToken()
+        <form action="/ghep-doan/" method="post" class="form-layout">
             <div class="row mg-b-25">
-                <div class="col-lg-10">
+                <div class="col-lg-9">
                     <div class="form-group">
                         <label class="form-control-label">Đoàn hiện đang có: <span class="tx-danger">*</span></label>
-                        @Html.DropDownList("MaTour", ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
+                        @if (doanSelectList == null || !doanSelectList.Any())
+                        {
+                            <select id="MaDoanDuLich" name="MaDoanDuLich" class="form-control select2">
+                                <option selected disabled>Chưa có sẵn đoàn du lịch</option>
+                            </select>
+                        }
+                        else
+                        {
+                            @Html.DropDownList("MaDoanDuLich", doanSelectList as SelectList, "Chọn đoàn du lịch", new { @class = "form-control select2" })
+                        }
                     </div>
                 </div><!-- col-4 -->
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <div class="form-group" style="margin-top: 30px;">
-                        <a href="/lam-moi-phien-lam-viec/" class="btn btn-teal mg-r-5 pull-right">Ghép đoàn đã chọn</a>
+                        @if (doanSelectList == null || !doanSelectList.Any())
+                        {
+                            <button class="btn btn-teal mg-r-5 pull-right" disabled>Ghép danh sách vào đoàn đã chọn</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-teal mg-r-5 pull-right">Ghép danh sách vào đoàn đã chọn</button>
+                        }
+                        
                     </div>
                 </div><!-- col-4 -->
                 <div class="col-lg-6">
@@ -196,9 +222,9 @@
                 </div><!-- col-6 -->
             </div><!-- row -->
             <div class="form-layout-footer" style="margin-top: 50px;">
-                <button class="btn btn-info mg-r-5">Thêm danh sách vào đoàn mới</button>
-                <a href="/" class="btn btn-secondary">Trở về</a>                
+                <a href="/tao-doan/" class="btn btn-info mg-r-5">Thêm danh sách vào đoàn mới</a>
+                <a href="/" class="btn btn-secondary">Trở về</a>
             </div><!-- form-layout-footer -->
-        }        
+        </form>  
     </div><!-- card -->
 </div><!-- sl-pagebody -->

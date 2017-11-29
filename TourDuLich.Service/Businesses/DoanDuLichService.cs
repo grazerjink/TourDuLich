@@ -10,6 +10,7 @@ namespace TourDuLich.Service.Businesses
     public interface IDoanDuLichService
     {
         List<BangDangKy> GetAllListCheckIn();
+        IEnumerable<object> GetAllListGroupTourByTime(int MaThoiGianTour);
     }
 
     public class DoanDuLichService : IDoanDuLichService
@@ -17,16 +18,19 @@ namespace TourDuLich.Service.Businesses
         private IBangDangKyRepository bangDangKyRepository;
         private IQuocTichRepository quocTichRepository;
         private ITourRepository tourRepository;
+        private IDoanDuLichRepository doanDuLichRepository;
         private IUnitOfWork unitOfWork;
 
         public DoanDuLichService(IBangDangKyRepository bangDangKyRepository,
                                 IQuocTichRepository quocTichRepository,
                                 ITourRepository tourRepository,
+                                IDoanDuLichRepository doanDuLichRepository,
                                 IUnitOfWork unitOfWork)
         {
             this.bangDangKyRepository = bangDangKyRepository;
             this.tourRepository = tourRepository;
             this.quocTichRepository = quocTichRepository;
+            this.doanDuLichRepository = doanDuLichRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -39,6 +43,21 @@ namespace TourDuLich.Service.Businesses
                 x.ThoiGianTour.Tour = tourRepository.GetSingleByCondition(t => t.MaTour == x.ThoiGianTour.MaTour);
             });
             return dsDangKy;
+        }
+
+        public IEnumerable<object> GetAllListGroupTourByTime(int MaThoiGianTour)
+        {
+            var dsDoan = doanDuLichRepository.GetMulti(x => x.MaThoiGianTour == MaThoiGianTour).ToList();
+            List<object> listSelect = new List<object>();
+            dsDoan.ForEach(x =>
+            {
+                listSelect.Add(new
+                {
+                    MaDoanDuLich = x.MaDoanDuLich,
+                    NoiDung = x.TenDoanDuLich + " -- Số lượng khách hiện có: " + x.SoLuongKhach + "/50 -- Số chỗ còn lại: " + (50 - x.SoLuongKhach) 
+                });
+            });
+            return listSelect as IEnumerable<object>;
         }
 
         public void SaveChange()

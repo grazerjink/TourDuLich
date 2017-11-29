@@ -513,6 +513,7 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\KhachHang\ThongKe.cshtml" />
     <Content Include="Views\DoanDuLich\LapDoanDuLich.cshtml" />
+    <Content Include="Views\DoanDuLich\TaoDoan.cshtml" />
     <None Include="Views\KhachHang\DangKy.cshtml" />
   </ItemGroup>
   <ItemGroup>
