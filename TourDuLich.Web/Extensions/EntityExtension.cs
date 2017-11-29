@@ -22,5 +22,15 @@ namespace TourDuLich.Web.Extensions
             khachHang.TenCongTy = viewModel.TenCongTy;
             khachHang.TrangThai = viewModel.TrangThai;
         }
+
+        public static void UpdateDoanDuLich(this DoanDuLich doanDuLich, DoanDuLichViewModel viewModel)
+        {
+            doanDuLich.MaDoanDuLich = viewModel.MaDoanDuLich;
+            doanDuLich.MaThoiGianTour = viewModel.MaThoiGianTour;
+            doanDuLich.SoLuongKhach = viewModel.SoLuongKhach;
+            doanDuLich.SoLuongNhanVien = viewModel.SoLuongNhanVien;
+            doanDuLich.TenDoanDuLich = viewModel.TenDoanDuLich;
+            doanDuLich.TinhTrang = viewModel.TinhTrang;
+        }
     }
 }

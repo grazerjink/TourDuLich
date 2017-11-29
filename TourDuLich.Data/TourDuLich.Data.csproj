@@ -67,6 +67,7 @@
     <Compile Include="ChiTietDiaDiem.cs">
       <DependentUpon>TourDuLichModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="DiaDiem.cs">
       <DependentUpon>TourDuLichModel.tt</DependentUpon>
     </Compile>

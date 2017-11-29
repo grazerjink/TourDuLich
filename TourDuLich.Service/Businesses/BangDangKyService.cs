@@ -10,6 +10,7 @@ namespace TourDuLich.Service.Businesses
     public interface IBangDangKyService
     {
         List<BangDangKy> GetAllListCheckInByTime(int MaThoiGian);
+        List<BangDangKy> GetAllListCheckInByListId(List<int> listId);
     }
 
     public class BangDangKyService : IBangDangKyService
@@ -28,6 +29,19 @@ namespace TourDuLich.Service.Businesses
             this.tourRepository = tourRepository;
             this.quocTichRepository = quocTichRepository;
             this.unitOfWork = unitOfWork;
+        }
+
+        public List<BangDangKy> GetAllListCheckInByListId(List<int> listId)
+        {
+            var dsDangKy = new List<BangDangKy>();
+            listId.ForEach(id =>
+            {
+                var dangKy = bangDangKyRepository.GetSingleByCondition(x=> x.Id == id, new string[] { "KhachHang", "ThoiGianTour" });
+                dangKy.KhachHang.QuocTich = quocTichRepository.GetSingleByCondition(qt => qt.MaQuocTich == dangKy.KhachHang.MaQuocTich);
+                dangKy.ThoiGianTour.Tour = tourRepository.GetSingleByCondition(t => t.MaTour == dangKy.ThoiGianTour.MaTour);
+                dsDangKy.Add(dangKy);
+            }); 
+            return dsDangKy;
         }
 
         public List<BangDangKy> GetAllListCheckInByTime(int MaThoiGian)

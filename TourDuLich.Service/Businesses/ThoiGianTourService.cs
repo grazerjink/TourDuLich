@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using TourDuLich.Data.Infrastructure;
 using TourDuLich.Data.Repositories;
 using System.Linq;
+using TourDuLich.Data;
 
 namespace TourDuLich.Service.Businesses
 {
     public interface IThoiGianTourService
     {
         IEnumerable<object> GetListTimeByTour(int MaTour);
+        ThoiGianTour GetInfoByTimeId(int timeId);
     }
 
     public class ThoiGianTourService : IThoiGianTourService
@@ -35,6 +37,11 @@ namespace TourDuLich.Service.Businesses
                 });
             });
             return listSelect as IEnumerable<object>;
+        }
+
+        public ThoiGianTour GetInfoByTimeId(int timeId)
+        {
+            return thoiGianTourRepository.GetSingleByCondition(x => x.MaThoiGianTour == timeId, new string[] { "Tour" });
         }
     }
 }

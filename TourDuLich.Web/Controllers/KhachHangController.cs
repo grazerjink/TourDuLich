@@ -109,7 +109,7 @@ namespace TourDuLich.Web.Controllers
         {
             var sessionList = Session["dsKhachHang"] as List<KhachHangViewModel>;
             sessionList.RemoveAll(x => x.MaKhachHang == id);
-            return Json("200", JsonRequestBehavior.AllowGet);
+            return Json(200, JsonRequestBehavior.AllowGet);
         }        
     }
 }

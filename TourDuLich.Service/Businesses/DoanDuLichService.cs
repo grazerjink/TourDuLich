@@ -11,6 +11,7 @@ namespace TourDuLich.Service.Businesses
     {
         List<BangDangKy> GetAllListCheckIn();
         IEnumerable<object> GetAllListGroupTourByTime(int MaThoiGianTour);
+        ResultState TaoDoanDuLich(DoanDuLich doanDuLich, List<BangDangKy> dsDangKy, Dictionary<string,string> dsNhanVien);
     }
 
     public class DoanDuLichService : IDoanDuLichService
@@ -19,18 +20,27 @@ namespace TourDuLich.Service.Businesses
         private IQuocTichRepository quocTichRepository;
         private ITourRepository tourRepository;
         private IDoanDuLichRepository doanDuLichRepository;
+        private IPhanCongRepository phanCongRepository;
+        private INhanVienRepository nhanVienRepository;
+        private INhiemVuRepository nhiemVuRepository;
         private IUnitOfWork unitOfWork;
 
         public DoanDuLichService(IBangDangKyRepository bangDangKyRepository,
                                 IQuocTichRepository quocTichRepository,
                                 ITourRepository tourRepository,
                                 IDoanDuLichRepository doanDuLichRepository,
+                                IPhanCongRepository phanCongRepository,
+                                INhanVienRepository nhanVienRepository,
+                                INhiemVuRepository nhiemVuRepository,
                                 IUnitOfWork unitOfWork)
         {
             this.bangDangKyRepository = bangDangKyRepository;
             this.tourRepository = tourRepository;
             this.quocTichRepository = quocTichRepository;
             this.doanDuLichRepository = doanDuLichRepository;
+            this.phanCongRepository = phanCongRepository;
+            this.nhanVienRepository = nhanVienRepository;
+            this.nhiemVuRepository = nhiemVuRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -63,6 +73,48 @@ namespace TourDuLich.Service.Businesses
         public void SaveChange()
         {
             unitOfWork.Commit();
+        }
+
+        public ResultState TaoDoanDuLich(DoanDuLich doanDuLich, List<BangDangKy> dsDangKy, Dictionary<string, string> dsNhanVien)
+        {
+            // Tạo đoàn để sinh Id
+            doanDuLichRepository.Add(doanDuLich);
+            SaveChange();
+            // Cập nhật số nhân viên và số khách hàng đăng ký đoàn này
+            int slNhanVien = 0;
+            foreach(string key in dsNhanVien.Keys)
+            {
+                string value = dsNhanVien[key];
+                if (value != null && !value.Equals(""))
+                {
+                    slNhanVien++;
+                    var nv = nhanVienRepository.GetSingleByCondition(n => n.HoTen.Equals(value));
+                    if(nv == null)
+                    {
+                        return new ResultState(false, "Nhân viên tên " + value + " không có trong danh sách của hệ thống.");
+                    }
+                    else
+                    {
+                        var pc = new PhanCong();
+                        pc.MaDoanDuLich = doanDuLich.MaDoanDuLich;
+                        pc.MaNhanVien = nv.MaNhanVien;
+                        pc.MaNhiemVu = nhiemVuRepository.GetSingleByCondition(x => x.TenNhiemVu.Equals(key)).MaNhiemVu;
+                        phanCongRepository.Add(pc);
+                    }
+                }
+            };
+            int slKhachDangKy = dsDangKy.Count;
+            doanDuLich.SoLuongKhach = slKhachDangKy;
+            doanDuLich.SoLuongNhanVien = slNhanVien;
+            SaveChange();
+            // Cập nhật mã đoàn cho khách hàng
+            dsDangKy.ForEach(x =>
+            {
+                var dk = bangDangKyRepository.GetSingleById(x.Id);
+                dk.MaDoanDuLich = doanDuLich.MaDoanDuLich;
+            });
+            SaveChange();
+            return new ResultState(true, "Đã tạo đoàn khách du lịch thành công.");
         }
     }
 }

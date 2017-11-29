@@ -25,6 +25,6 @@ namespace TourDuLich.Service.Businesses
         public IEnumerable<Tour> GetAllListTour()
         {
             return tourRepository.GetAll();
-        }
+        }        
     }
 }

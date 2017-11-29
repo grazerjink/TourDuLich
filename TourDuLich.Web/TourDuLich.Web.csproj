@@ -182,11 +182,15 @@
     </Compile>
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
+    <Compile Include="Models\DoanDuLichViewModel.cs" />
     <Compile Include="Models\KhachHangViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\js\dang-ky.js" />
+    <Content Include="Assets\js\lap-doan-du-lich.js" />
     <Content Include="Assets\js\show-toast.js" />
+    <Content Include="Assets\js\tao-doan.js" />
     <Content Include="Assets\template\css\bracket.css" />
     <Content Include="Assets\template\css\bracket.min.css" />
     <Content Include="Assets\template\css\starlight.css" />
@@ -419,6 +423,9 @@
     <Content Include="Assets\template\lib\summernote\summernote.css" />
     <Content Include="Assets\template\lib\summernote\summernote.js" />
     <Content Include="Assets\template\lib\summernote\summernote.min.js" />
+    <Content Include="Assets\vendor\jQuery-autoComplete\jquery.auto-complete.css" />
+    <Content Include="Assets\vendor\jQuery-autoComplete\jquery.auto-complete.js" />
+    <Content Include="Assets\vendor\jQuery-autoComplete\jquery.auto-complete.min.js" />
     <Content Include="Assets\vendor\toastr\toastr.min.css" />
     <Content Include="Assets\vendor\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />

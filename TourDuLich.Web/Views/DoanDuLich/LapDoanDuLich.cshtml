@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/Layout.cshtml";
     var successMessage = (string)TempData["Success"];
     var errorMessage = (string)TempData["Error"];
-    var listKhachHang = ViewBag.dsDangKy as List<TourDuLich.Data.BangDangKy>;
+    var listDangKy = ViewBag.dsDangKy as List<TourDuLich.Data.BangDangKy>;
     var doanSelectList = ViewBag.DoanSelectList as IEnumerable<object>;
     var thoiGianSelectList = ViewBag.ThoiGianTourSelectList as IEnumerable<object>;
 }
@@ -13,17 +13,6 @@
     <link href="~/Assets/template/lib/datatables/jquery.dataTables.css" rel="stylesheet">
     <link href="~/Assets/template/lib/select2/css/select2.min.css" rel="stylesheet">
     <style>
-        select.ui-datepicker-month {
-            width: 80px;
-            padding: 2px 0;
-        }
-
-        select.ui-datepicker-year {
-            width: 80px;
-            padding: 2px 0;
-            margin-left: 5px;
-        }
-
         table.dataTable tbody tr {
             background-color: #efefef;
         }
@@ -34,53 +23,8 @@
     <script src="~/Assets/template/lib/datatables/jquery.dataTables.js"></script>
     <script src="~/Assets/template/lib/datatables-responsive/dataTables.responsive.js"></script>
     <script src="~/Assets/template/lib/select2/js/select2.min.js"></script>
+    <script src="~/Assets/js/lap-doan-du-lich.js"></script>
     <script>
-        $(function () {
-            $('#tableKhachHang').DataTable({
-                bLengthChange: false,
-                searching: true,
-                responsive: true,
-                language: {
-                    searchPlaceholder: 'Search...',
-                    sSearch: ''
-                }
-            });
-            $("select option:first-child").attr("disabled", "disabled");
-
-            $("#MaTour").change(function () {
-                $.ajax({
-                    url: "/lay-thoi-gian-tour",
-                    dataType: "json",
-                    data: {
-                        MaTour: $(this).val()
-                    },
-                    success: function (data) {
-                        if (jQuery.isEmptyObject(data))
-                        {
-                            var optionHTML = "<option selected disabled>Chưa có thời gian hoạt động</option>";
-                            $("#MaThoiGianTour").html(optionHTML);
-                        }
-                        else
-                        {
-                            var optionHTML = "<option selected disabled>Chọn thời gian</option>";
-                            $.each(data, function (i, item) {
-                                optionHTML += "<option value='" + item.MaThoiGian + "'>" + item.ThoiGian + "</option>";
-                            });
-                            $("#MaThoiGianTour").html(optionHTML);
-                        }
-                       
-                    }
-                });
-            });
-
-            $("#check-all").change(function () {
-                if($(this).is(":checked"))
-                    $(".item-check").prop("checked", true);
-                else
-                    $(".item-check").prop("checked", false);                
-            });
-        });
-
         @if(successMessage != null && successMessage.Length != 0)
         {
             @:showSuccessToast("@successMessage");
@@ -159,24 +103,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (listKhachHang != null)
+                    @if (listDangKy != null)
                     {
-                        foreach (var kh in listKhachHang)
+                        foreach (var dk in listDangKy)
                         {
                         <tr>
                             <td>
                                 <label class="ckbox mg-b-0">
-                                    <input class="item-check" type="checkbox"><span></span>
+                                    <input class="item-check" data-dk-id="@dk.Id" type="checkbox"><span></span>
                                 </label>
                             </td>
-                            <td>@kh.KhachHang.HoTen</td>
-                            <td>@if (kh.KhachHang.GioiTinh == true){ @("Nam") }else{ @("Nữ") }</td>
-                            <td>@kh.KhachHang.NgaySinh.Value.ToString("dd/MM/yyyy")</td>
-                            <td>@kh.KhachHang.CMND @kh.KhachHang.Passport</td>
-                            <td>@kh.KhachHang.SoDienThoai</td>
-                            <td>@kh.KhachHang.TenCongTy</td>
-                            <td>@kh.ThoiGianTour.NgayDi.Value.ToString("dd/MM/yyyy") - @kh.ThoiGianTour.NgayVe.Value.ToString("dd/MM/yyyy")</td>
-                            <td>@kh.ThoiGianTour.Tour.TenTour</td>
+                            <td>@dk.KhachHang.HoTen</td>
+                            <td>@if (dk.KhachHang.GioiTinh == true){ @("Nam") }else{ @("Nữ") }</td>
+                            <td>@dk.KhachHang.NgaySinh.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@dk.KhachHang.CMND @dk.KhachHang.Passport</td>
+                            <td>@dk.KhachHang.SoDienThoai</td>
+                            <td>@dk.KhachHang.TenCongTy</td>
+                            <td>@dk.ThoiGianTour.NgayDi.Value.ToString("dd/MM/yyyy") - @dk.ThoiGianTour.NgayVe.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@dk.ThoiGianTour.Tour.TenTour</td>
                         </tr>
                         }
                     }
@@ -222,7 +166,7 @@
                 </div><!-- col-6 -->
             </div><!-- row -->
             <div class="form-layout-footer" style="margin-top: 50px;">
-                <a href="/tao-doan/" class="btn btn-info mg-r-5">Thêm danh sách vào đoàn mới</a>
+                <a href="/tao-doan/" id="tao-doan" class="btn btn-info mg-r-5">Thêm danh sách vào đoàn mới</a>                
                 <a href="/" class="btn btn-secondary">Trở về</a>
             </div><!-- form-layout-footer -->
         </form>  
