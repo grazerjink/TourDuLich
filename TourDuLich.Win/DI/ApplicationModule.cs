@@ -17,7 +17,7 @@ namespace TourDuLich.Win.DI
             // Binding repositories
             Kernel.Bind(x =>
             {
-                x.FromAssemblyContaining(typeof(INhiemVuRepository))
+                x.FromAssemblyContaining(typeof(ITourRepository))
                  .SelectAllClasses()
                  .EndingWith("Repository")
                  .BindDefaultInterface();
@@ -26,7 +26,7 @@ namespace TourDuLich.Win.DI
             // Binding services
             Kernel.Bind(x =>
             {
-                x.FromAssemblyContaining(typeof(INhiemVuService))
+                x.FromAssemblyContaining(typeof(ITourService))
                  .SelectAllClasses()
                  .EndingWith("Service")
                  .BindDefaultInterface();

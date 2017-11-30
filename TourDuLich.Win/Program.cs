@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Windows.Forms;
 using TourDuLich.Win.DI;
+using TourDuLich.Win.Forms;
 
 namespace TourDuLich.Win
 {
-    public static class Program
+    internal static class Program
     {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
         [STAThread]
         private static void Main()
         {
             CompositionRoot.Wire(new ApplicationModule());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(CompositionRoot.Resolve<Form1>());
+            Application.Run(CompositionRoot.Resolve<Dashboard>());
         }
     }
 }

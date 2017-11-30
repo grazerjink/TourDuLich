@@ -1,5 +1,7 @@
 ﻿using Ninject;
 using Ninject.Modules;
+using Ninject.Parameters;
+using System.Collections.Generic;
 
 namespace TourDuLich.Win.DI
 {
@@ -12,9 +14,21 @@ namespace TourDuLich.Win.DI
             _ninjectKernel = new StandardKernel(module);
         }
 
-        public static T Resolve<T>()
+        public static T Resolve<T>(string[] paramNames = null, object[] values = null)
         {
-            return _ninjectKernel.Get<T>();
-        }
+            if(paramNames != null)
+            {
+                ConstructorArgument[] constructors = new ConstructorArgument[paramNames.Length];
+                for(int i=0; i<paramNames.Length; i++)
+                {
+                    constructors[i] = new ConstructorArgument(paramNames[i], values[i]);
+                }
+                return _ninjectKernel.Get<T>(constructors);
+            }
+            else
+            {
+                return _ninjectKernel.Get<T>();
+            }                
+        }        
     }
 }

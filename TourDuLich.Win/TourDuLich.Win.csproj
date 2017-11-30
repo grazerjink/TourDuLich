@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2BEB1AA7-7F03-4EE0-A8A8-B76C5F1027A6}</ProjectGuid>
+    <ProjectGuid>{10BC8D04-93A9-4BA9-BF93-CCD96BCE12C4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TourDuLich.Win</RootNamespace>
     <AssemblyName>TourDuLich.Win</AssemblyName>
@@ -32,8 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>..\Bunifu_UI_v1.5.3.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -41,8 +44,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Extensions.Conventions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Extensions.Conventions.3.3.0\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
@@ -54,9 +57,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,18 +68,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DoanhThu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DoanhThu.Designer.cs">
+      <DependentUpon>DoanhThu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LapTourDuLich.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LapTourDuLich.Designer.cs">
+      <DependentUpon>LapTourDuLich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SoLanDiTour.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SoLanDiTour.Designer.cs">
+      <DependentUpon>SoLanDiTour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TinhHinhHoatDong.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TinhHinhHoatDong.Designer.cs">
+      <DependentUpon>TinhHinhHoatDong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XemGiaTour.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\XemGiaTour.Designer.cs">
+      <DependentUpon>XemGiaTour.cs</DependentUpon>
+    </Compile>
     <Compile Include="DI\ApplicationModule.cs" />
     <Compile Include="DI\CompositionRoot.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\DoanhThu.resx">
+      <DependentUpon>DoanhThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LapTourDuLich.resx">
+      <DependentUpon>LapTourDuLich.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SoLanDiTour.resx">
+      <DependentUpon>SoLanDiTour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TinhHinhHoatDong.resx">
+      <DependentUpon>TinhHinhHoatDong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XemGiaTour.resx">
+      <DependentUpon>XemGiaTour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,9 +135,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="ConnectionString.config">
+    <Content Include="ConnectionString.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -117,6 +162,5 @@
       <Name>TourDuLich.Service</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
