@@ -74,11 +74,11 @@
     <Compile Include="Controls\DoanhThu.Designer.cs">
       <DependentUpon>DoanhThu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\LapTourDuLich.cs">
+    <Compile Include="Controls\LapDiaDiemTour.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\LapTourDuLich.Designer.cs">
-      <DependentUpon>LapTourDuLich.cs</DependentUpon>
+    <Compile Include="Controls\LapDiaDiemTour.Designer.cs">
+      <DependentUpon>LapDiaDiemTour.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SoLanDiTour.cs">
       <SubType>UserControl</SubType>
@@ -111,8 +111,8 @@
     <EmbeddedResource Include="Controls\DoanhThu.resx">
       <DependentUpon>DoanhThu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\LapTourDuLich.resx">
-      <DependentUpon>LapTourDuLich.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\LapDiaDiemTour.resx">
+      <DependentUpon>LapDiaDiemTour.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SoLanDiTour.resx">
       <DependentUpon>SoLanDiTour.cs</DependentUpon>
@@ -135,10 +135,78 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Content Include="ConnectionString.config">
+    <None Include="ConnectionString.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\TourDuLich.Data.BangDangKy.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.ChiPhiAnUong.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.ChiPhiKhachSan.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.ChiPhiPhatSinh.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.ChiPhiPhuongTien.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.ChiTietDiaDiem.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Constants.Constants.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.DiaDiem.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.DoanDuLich.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.GiaTour.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Infrastructure.DbFactory.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Infrastructure.Disposable.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Infrastructure.IDbFactory.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Infrastructure.IUnitOfWork.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Infrastructure.UnitOfWork.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.KhachHang.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.LichTrinh.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.LoaiHinhDuLich.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.NhanVien.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.NhiemVu.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.PhanCong.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.QuocTich.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.BangDangKyRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ChiPhiAnUongRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ChiPhiKhachSanRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ChiPhiPhatSinhRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ChiPhiPhuongTienRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ChiTietDiaDiemRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.DiaDiemRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.DoanDuLichRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.GiaTourRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IBangDangKyRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IChiPhiAnUongRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IChiPhiKhachSanRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IChiPhiPhatSinhRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IChiPhiPhuongTienRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IChiTietDiaDiemRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IDiaDiemRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IDoanDuLichRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IGiaTourRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IKhachHangRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ILichTrinhRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ILoaiHinhDuLichRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.INhanVienRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.INhiemVuRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IPhanCongRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IQuocTichRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.IThoiGianTourRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ITinhThanhRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ITourDiemThamQuanRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ITourRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.KhachHangRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.LichTrinhRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.LoaiHinhDuLichRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.NhanVienRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.NhiemVuRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.PhanCongRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.QuocTichRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.ThoiGianTourRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.TinhThanhRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.TourDiemThamQuanRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Repositories.TourRepository.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.sysdiagram.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.ThoiGianTour.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.TinhThanh.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.Tour.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.TourDiemThamQuan.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Data.TourDuLichEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -161,6 +229,9 @@
       <Project>{BCEE47B0-973A-46D6-A7BF-03F4B068300A}</Project>
       <Name>TourDuLich.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

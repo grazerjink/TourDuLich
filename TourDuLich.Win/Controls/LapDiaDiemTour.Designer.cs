@@ -1,6 +1,6 @@
 ﻿namespace TourDuLich.Win.Controls
 {
-    partial class LapTourDuLich
+    partial class LapDiaDiemTour
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,6 +32,8 @@
             this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.btnExit = new Bunifu.Framework.UI.BunifuCustomLabel();
+            this.tourBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.tourBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuCustomLabel1
@@ -47,9 +49,9 @@
             this.bunifuCustomLabel1.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
             this.bunifuCustomLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bunifuCustomLabel1.Size = new System.Drawing.Size(224, 32);
+            this.bunifuCustomLabel1.Size = new System.Drawing.Size(431, 32);
             this.bunifuCustomLabel1.TabIndex = 1;
-            this.bunifuCustomLabel1.Text = "Lập tour du lịch";
+            this.bunifuCustomLabel1.Text = "Lập danh sách điểm tham quan";
             this.bunifuCustomLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // bunifuDragControl1
@@ -75,16 +77,23 @@
             this.btnExit.Text = "X";
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.MouseLeave += new System.EventHandler(this.btnExit_Leave);
+            this.btnExit.MouseHover += new System.EventHandler(this.btnExit_Hover);
             // 
-            // LapTourDuLich
+            // tourBindingSource
+            // 
+            this.tourBindingSource.DataSource = typeof(TourDuLich.Data.Tour);
+            // 
+            // LapDiaDiemTour
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.bunifuCustomLabel1);
-            this.Name = "LapTourDuLich";
+            this.Name = "LapDiaDiemTour";
             this.Size = new System.Drawing.Size(977, 700);
+            ((System.ComponentModel.ISupportInitialize)(this.tourBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,5 +104,6 @@
         private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private Bunifu.Framework.UI.BunifuCustomLabel btnExit;
+        private System.Windows.Forms.BindingSource tourBindingSource;
     }
 }

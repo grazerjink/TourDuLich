@@ -10,14 +10,12 @@ namespace TourDuLich.Win.Forms
         public Dashboard()
         {
             InitializeComponent();
-            pnlContent.Controls.Clear();
-            pnlContent.Controls.Add(CompositionRoot.Resolve<LapTourDuLich>(new string[] { "title" }, new object[] { "ABC" }));
         }
 
         private void btnLapTourDuLich_Click(object sender, EventArgs e)
         {
             pnlContent.Controls.Clear();
-            pnlContent.Controls.Add(CompositionRoot.Resolve<LapTourDuLich>(new string[] { "title" }, new object[] { "CDE" }));
+            pnlContent.Controls.Add(CompositionRoot.Resolve<LapDiaDiemTour>());
         }
 
         private void btnXemGiaTour_Click(object sender, EventArgs e)

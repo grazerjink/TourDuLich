@@ -42,6 +42,7 @@
             this.pnlContent = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.pnlSidebar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +77,7 @@
             this.btnSoLanDiTour.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSoLanDiTour.BorderRadius = 0;
             this.btnSoLanDiTour.ButtonText = "Thống kê số lần đi tour";
+            this.btnSoLanDiTour.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSoLanDiTour.DisabledColor = System.Drawing.Color.Gray;
             this.btnSoLanDiTour.Iconcolor = System.Drawing.Color.Transparent;
             this.btnSoLanDiTour.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSoLanDiTour.Iconimage")));
@@ -110,6 +112,7 @@
             this.btnTinhHinh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnTinhHinh.BorderRadius = 0;
             this.btnTinhHinh.ButtonText = "Thống kê tình hình";
+            this.btnTinhHinh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTinhHinh.DisabledColor = System.Drawing.Color.Gray;
             this.btnTinhHinh.Iconcolor = System.Drawing.Color.Transparent;
             this.btnTinhHinh.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnTinhHinh.Iconimage")));
@@ -144,6 +147,7 @@
             this.btnDoanhThu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDoanhThu.BorderRadius = 0;
             this.btnDoanhThu.ButtonText = "Thống kê doanh thu";
+            this.btnDoanhThu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDoanhThu.DisabledColor = System.Drawing.Color.Gray;
             this.btnDoanhThu.Iconcolor = System.Drawing.Color.Transparent;
             this.btnDoanhThu.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnDoanhThu.Iconimage")));
@@ -155,7 +159,7 @@
             this.btnDoanhThu.IconRightVisible = true;
             this.btnDoanhThu.IconRightZoom = 0D;
             this.btnDoanhThu.IconVisible = true;
-            this.btnDoanhThu.IconZoom = 90D; 
+            this.btnDoanhThu.IconZoom = 90D;
             this.btnDoanhThu.IsTab = false;
             this.btnDoanhThu.Location = new System.Drawing.Point(0, 245);
             this.btnDoanhThu.Name = "btnDoanhThu";
@@ -177,7 +181,8 @@
             this.btnXemGiaTour.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnXemGiaTour.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnXemGiaTour.BorderRadius = 0;
-            this.btnXemGiaTour.ButtonText = "Xem giá tour";
+            this.btnXemGiaTour.ButtonText = "Xem giá tour hiện tại";
+            this.btnXemGiaTour.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnXemGiaTour.DisabledColor = System.Drawing.Color.Gray;
             this.btnXemGiaTour.Iconcolor = System.Drawing.Color.Transparent;
             this.btnXemGiaTour.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnXemGiaTour.Iconimage")));
@@ -199,7 +204,7 @@
             this.btnXemGiaTour.selected = false;
             this.btnXemGiaTour.Size = new System.Drawing.Size(222, 50);
             this.btnXemGiaTour.TabIndex = 12;
-            this.btnXemGiaTour.Text = "Xem giá tour";
+            this.btnXemGiaTour.Text = "Xem giá tour hiện tại";
             this.btnXemGiaTour.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXemGiaTour.Textcolor = System.Drawing.Color.White;
             this.btnXemGiaTour.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -211,7 +216,8 @@
             this.btnLapTourDuLich.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnLapTourDuLich.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLapTourDuLich.BorderRadius = 0;
-            this.btnLapTourDuLich.ButtonText = "Lập tour du lịch";
+            this.btnLapTourDuLich.ButtonText = "Lập danh sách địa điểm";
+            this.btnLapTourDuLich.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLapTourDuLich.DisabledColor = System.Drawing.Color.Gray;
             this.btnLapTourDuLich.Iconcolor = System.Drawing.Color.Transparent;
             this.btnLapTourDuLich.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnLapTourDuLich.Iconimage")));
@@ -233,7 +239,7 @@
             this.btnLapTourDuLich.selected = false;
             this.btnLapTourDuLich.Size = new System.Drawing.Size(222, 50);
             this.btnLapTourDuLich.TabIndex = 11;
-            this.btnLapTourDuLich.Text = "Lập tour du lịch";
+            this.btnLapTourDuLich.Text = "Lập danh sách địa điểm";
             this.btnLapTourDuLich.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLapTourDuLich.Textcolor = System.Drawing.Color.White;
             this.btnLapTourDuLich.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -318,6 +324,11 @@
             this.bunifuDragControl2.TargetControl = this.pnlContent;
             this.bunifuDragControl2.Vertical = true;
             // 
+            // bunifuElipse1
+            // 
+            this.bunifuElipse1.ElipseRadius = 10;
+            this.bunifuElipse1.TargetControl = this;
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,5 +359,6 @@
         private Bunifu.Framework.UI.BunifuFlatButton btnDoanhThu;
         private Bunifu.Framework.UI.BunifuFlatButton btnXemGiaTour;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }
