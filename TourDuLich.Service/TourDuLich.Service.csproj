@@ -55,6 +55,7 @@
     <Compile Include="Businesses\DiaDiemService.cs" />
     <Compile Include="Businesses\TourService.cs" />
     <Compile Include="Commons\IndexInfo.cs" />
+    <Compile Include="Commons\TourViewModel.cs" />
     <Compile Include="ResultState.cs" />
     <Compile Include="Businesses\KhachHangService.cs" />
     <Compile Include="Businesses\TinhThanhService.cs" />

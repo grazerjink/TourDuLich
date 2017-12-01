@@ -85,8 +85,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaTour" Type="int" />
-          <Property Name="ThoiGianBatDau" Type="nvarchar" MaxLength="50" />
-          <Property Name="ThoiGianKetThuc" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThoiGianBatDau" Type="date" />
+          <Property Name="ThoiGianKetThuc" Type="date" />
           <Property Name="GiaTien" Type="float" />
           <Property Name="TrangThai" Type="bit" />
         </EntityType>
@@ -671,8 +671,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaTour" Type="Int32" />
-          <Property Name="ThoiGianBatDau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ThoiGianKetThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGianBatDau" Type="DateTime" Precision="0" />
+          <Property Name="ThoiGianKetThuc" Type="DateTime" Precision="0" />
           <Property Name="GiaTien" Type="Double" />
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_GiaTour_Tour" FromRole="GiaTour" ToRole="Tour" />

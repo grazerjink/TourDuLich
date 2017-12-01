@@ -18,7 +18,6 @@ namespace TourDuLich.Data
         public TourDuLichEntities()
             : base("name=TourDuLichEntities")
         {
-            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

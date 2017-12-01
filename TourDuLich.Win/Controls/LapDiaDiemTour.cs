@@ -54,6 +54,7 @@ namespace TourDuLich.Win.Controls
 
         private void RefreshTableContent()
         {
+            lblStatus.Text = "";
             tblDiaDiem.Rows.Clear();
             var listIndex = tourService.LayDanhSachDiaDiemTheoTour(drdTourDuLich.selectedIndex);
             foreach(var info in listIndex)
