@@ -11,8 +11,8 @@ namespace TourDuLich.Win.DI
         public override void Load()
         {
             // Binding factory
-            Kernel.Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork)).InTransientScope();
-            Kernel.Bind(typeof(IDbFactory)).To(typeof(DbFactory)).InTransientScope();
+            Kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Kernel.Bind<IDbFactory>().To<DbFactory>().InSingletonScope();
 
             // Binding repositories
             Kernel.Bind(x =>
@@ -20,7 +20,7 @@ namespace TourDuLich.Win.DI
                 x.FromAssemblyContaining(typeof(ITourRepository))
                  .SelectAllClasses()
                  .EndingWith("Repository")
-                 .BindDefaultInterface();
+                 .BindAllInterfaces();
             });
 
             // Binding services
@@ -29,7 +29,7 @@ namespace TourDuLich.Win.DI
                 x.FromAssemblyContaining(typeof(ITourService))
                  .SelectAllClasses()
                  .EndingWith("Service")
-                 .BindDefaultInterface();
+                 .BindAllInterfaces();
             });
             
         }

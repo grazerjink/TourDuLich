@@ -16,10 +16,5 @@ namespace TourDuLich.Win.Controls
         {
             InitializeComponent();
         }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
     }
 }

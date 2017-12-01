@@ -43,7 +43,9 @@
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.btnExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.pnlSidebar.SuspendLayout();
+            this.pnlContent.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlSidebar
@@ -300,6 +302,7 @@
             // 
             this.pnlContent.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlContent.BackgroundImage")));
             this.pnlContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlContent.Controls.Add(this.btnExit);
             this.pnlContent.GradientBottomLeft = System.Drawing.Color.White;
             this.pnlContent.GradientBottomRight = System.Drawing.Color.White;
             this.pnlContent.GradientTopLeft = System.Drawing.Color.White;
@@ -329,6 +332,25 @@
             this.bunifuElipse1.ElipseRadius = 10;
             this.bunifuElipse1.TargetControl = this;
             // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.AutoSize = true;
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.btnExit.Location = new System.Drawing.Point(920, 20);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(0, 20, 20, 0);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(29, 29);
+            this.btnExit.TabIndex = 6;
+            this.btnExit.Text = "X";
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.MouseLeave += new System.EventHandler(this.btnExit_Leave);
+            this.btnExit.MouseHover += new System.EventHandler(this.btnExit_Hover);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,6 +364,8 @@
             this.Text = "Dashboard";
             this.pnlSidebar.ResumeLayout(false);
             this.pnlSidebar.PerformLayout();
+            this.pnlContent.ResumeLayout(false);
+            this.pnlContent.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -360,5 +384,6 @@
         private Bunifu.Framework.UI.BunifuFlatButton btnXemGiaTour;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
+        private Bunifu.Framework.UI.BunifuCustomLabel btnExit;
     }
 }
