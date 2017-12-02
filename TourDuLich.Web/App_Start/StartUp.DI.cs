@@ -26,19 +26,18 @@ namespace TourDuLich.Web.App_Start
             var builder = new ContainerBuilder();
 
             builder.RegisterFilterProvider();
-            builder.RegisterType<KhachHangActionFilter>().PropertiesAutowired();
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
             // Repositories
-            builder.RegisterAssemblyTypes(typeof(NhiemVuRepository).Assembly)
+            builder.RegisterAssemblyTypes(typeof(TourRepository).Assembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerRequest();
 
             // Services
-            builder.RegisterAssemblyTypes(typeof(NhiemVuService).Assembly)
+            builder.RegisterAssemblyTypes(typeof(TourService).Assembly)
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
             IContainer container = builder.Build();

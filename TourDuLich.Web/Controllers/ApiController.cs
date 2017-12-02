@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using TourDuLich.Data;
-using TourDuLich.Service.Businesses;
 using System.Linq;
+using System.Web.Mvc;
+using TourDuLich.Service.Businesses;
 
 namespace TourDuLich.Web.Controllers
 {
@@ -21,9 +20,10 @@ namespace TourDuLich.Web.Controllers
         [Route("lay-danh-sach-nhan-vien")]
         public JsonResult LayDanhSachNhanVien()
         {
-            var listNhanVien = nhanVienService.GetAll().ToList();
+            var listNhanVien = nhanVienService.GetAllListNhanVien().ToList();
             var listData = new List<string>();
-            listNhanVien.ForEach(x => {
+            listNhanVien.ForEach(x =>
+            {
                 listData.Add(x.HoTen);
             });
             return Json(listData, JsonRequestBehavior.AllowGet);

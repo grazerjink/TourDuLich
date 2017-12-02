@@ -7,21 +7,22 @@ namespace TourDuLich.Service.Businesses
 {
     public interface INhanVienService
     {
-        IEnumerable<NhanVien> GetAll();
+        IEnumerable<NhanVien> GetAllListNhanVien();
     }
 
     public class NhanVienService : INhanVienService
     {
-        INhanVienRepository nhanVienRepository;
-        IUnitOfWork unitOfWork;
+        private INhanVienRepository nhanVienRepository;
+        private IUnitOfWork unitOfWork;
 
-        public NhanVienService(INhanVienRepository nhanVienRepository, IUnitOfWork unitOfWork)
+        public NhanVienService(INhanVienRepository nhanVienRepository,
+                                IUnitOfWork unitOfWork)
         {
             this.nhanVienRepository = nhanVienRepository;
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<NhanVien> GetAll()
+        public IEnumerable<NhanVien> GetAllListNhanVien()
         {
             return nhanVienRepository.GetAll();
         }

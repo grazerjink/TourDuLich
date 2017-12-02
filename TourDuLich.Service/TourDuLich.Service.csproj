@@ -50,17 +50,17 @@
   <ItemGroup>
     <Compile Include="Businesses\BangDangKyService.cs" />
     <Compile Include="Businesses\DoanDuLichService.cs" />
+    <Compile Include="Businesses\NhanVienService.cs" />
     <Compile Include="Businesses\ThoiGianTourService.cs" />
     <Compile Include="Businesses\QuocTichService.cs" />
-    <Compile Include="Businesses\DiaDiemService.cs" />
+    <Compile Include="Businesses\ThongKeService.cs" />
     <Compile Include="Businesses\TourService.cs" />
+    <Compile Include="Commons\DoanhThuViewModel.cs" />
     <Compile Include="Commons\IndexInfo.cs" />
     <Compile Include="Commons\TourViewModel.cs" />
     <Compile Include="ResultState.cs" />
     <Compile Include="Businesses\KhachHangService.cs" />
     <Compile Include="Businesses\TinhThanhService.cs" />
-    <Compile Include="Businesses\NhiemVuService.cs" />
-    <Compile Include="Businesses\NhanVienService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
