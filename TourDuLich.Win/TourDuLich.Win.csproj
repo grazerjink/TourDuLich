@@ -215,6 +215,7 @@
     <None Include="Properties\DataSources\TourDuLich.Data.Tour.datasource" />
     <None Include="Properties\DataSources\TourDuLich.Data.TourDiemThamQuan.datasource" />
     <None Include="Properties\DataSources\TourDuLich.Data.TourDuLichEntities.datasource" />
+    <None Include="Properties\DataSources\TourDuLich.Service.Commons.NhanVienViewModel.datasource" />
     <None Include="Properties\DataSources\TourDuLich.Service.Commons.TourViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

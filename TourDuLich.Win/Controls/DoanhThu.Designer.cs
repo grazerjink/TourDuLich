@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.chartDoanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -77,16 +77,16 @@
             this.chartDoanhThu.BackSecondaryColor = System.Drawing.Color.White;
             this.chartDoanhThu.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDot;
             this.chartDoanhThu.BorderlineWidth = 3;
-            chartArea1.Name = "ChartDoanhThu";
-            this.chartDoanhThu.ChartAreas.Add(chartArea1);
-            legend1.Name = "legendTour";
-            legend1.Title = "Danh sách tour";
-            this.chartDoanhThu.Legends.Add(legend1);
+            chartArea2.Name = "ChartDoanhThu";
+            this.chartDoanhThu.ChartAreas.Add(chartArea2);
+            legend2.Name = "legendTour";
+            legend2.Title = "Danh sách tour";
+            this.chartDoanhThu.Legends.Add(legend2);
             this.chartDoanhThu.Location = new System.Drawing.Point(20, 112);
             this.chartDoanhThu.Margin = new System.Windows.Forms.Padding(20);
             this.chartDoanhThu.Name = "chartDoanhThu";
             this.chartDoanhThu.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
-            this.chartDoanhThu.Size = new System.Drawing.Size(627, 568);
+            this.chartDoanhThu.Size = new System.Drawing.Size(644, 568);
             this.chartDoanhThu.TabIndex = 3;
             // 
             // btnKiemTra
@@ -110,7 +110,7 @@
             this.btnKiemTra.IconVisible = true;
             this.btnKiemTra.IconZoom = 90D;
             this.btnKiemTra.IsTab = false;
-            this.btnKiemTra.Location = new System.Drawing.Point(823, 645);
+            this.btnKiemTra.Location = new System.Drawing.Point(857, 645);
             this.btnKiemTra.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.btnKiemTra.Name = "btnKiemTra";
             this.btnKiemTra.Normalcolor = System.Drawing.Color.CornflowerBlue;
@@ -129,7 +129,7 @@
             // 
             this.lblDen.AutoSize = true;
             this.lblDen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDen.Location = new System.Drawing.Point(666, 143);
+            this.lblDen.Location = new System.Drawing.Point(700, 144);
             this.lblDen.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.lblDen.Name = "lblDen";
             this.lblDen.Size = new System.Drawing.Size(39, 20);
@@ -144,8 +144,8 @@
             this.dateTo.ForeColor = System.Drawing.Color.Black;
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.FormatCustom = "dd / MM / yyyy";
-            this.dateTo.Location = new System.Drawing.Point(723, 136);
-            this.dateTo.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
+            this.dateTo.Location = new System.Drawing.Point(757, 136);
+            this.dateTo.Margin = new System.Windows.Forms.Padding(20, 20, 20, 0);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(200, 35);
             this.dateTo.TabIndex = 8;
@@ -159,7 +159,7 @@
             this.dateFrom.ForeColor = System.Drawing.Color.Black;
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.FormatCustom = "dd / MM / yyyy";
-            this.dateFrom.Location = new System.Drawing.Point(723, 81);
+            this.dateFrom.Location = new System.Drawing.Point(757, 81);
             this.dateFrom.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(200, 35);
@@ -185,7 +185,7 @@
             // 
             this.bunifuCustomLabel2.AutoSize = true;
             this.bunifuCustomLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCustomLabel2.Location = new System.Drawing.Point(666, 88);
+            this.bunifuCustomLabel2.Location = new System.Drawing.Point(700, 88);
             this.bunifuCustomLabel2.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.bunifuCustomLabel2.Name = "bunifuCustomLabel2";
             this.bunifuCustomLabel2.Size = new System.Drawing.Size(27, 20);
@@ -197,7 +197,8 @@
             this.listTour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listTour.FormattingEnabled = true;
             this.listTour.ItemHeight = 16;
-            this.listTour.Location = new System.Drawing.Point(670, 198);
+            this.listTour.Location = new System.Drawing.Point(704, 200);
+            this.listTour.Margin = new System.Windows.Forms.Padding(20, 20, 20, 0);
             this.listTour.Name = "listTour";
             this.listTour.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listTour.Size = new System.Drawing.Size(253, 420);

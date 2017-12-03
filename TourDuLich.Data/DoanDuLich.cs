@@ -27,6 +27,10 @@ namespace TourDuLich.Data
         public string TenDoanDuLich { get; set; }
         public Nullable<int> SoLuongKhach { get; set; }
         public Nullable<int> SoLuongNhanVien { get; set; }
+        public Nullable<double> TongTienAnUong { get; set; }
+        public Nullable<double> TongTienPhuongTien { get; set; }
+        public Nullable<double> TongTienKhachSan { get; set; }
+        public Nullable<double> TongTienPhatSinh { get; set; }
         public Nullable<int> TinhTrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

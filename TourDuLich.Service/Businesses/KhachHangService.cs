@@ -74,7 +74,7 @@ namespace TourDuLich.Service.Businesses
                         var bangDangKy = new BangDangKy
                         {
                             MaKhachHang = kh.MaKhachHang,
-                            MaThoiGian = thoiGianTour.MaThoiGianTour
+                            MaThoiGianTour = thoiGianTour.MaThoiGianTour
                         };
                         bangDangKyRepository.Add(bangDangKy);
                     });

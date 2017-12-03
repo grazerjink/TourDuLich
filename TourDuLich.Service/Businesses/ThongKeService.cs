@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TourDuLich.Data;
+using TourDuLich.Data.Constants;
 using TourDuLich.Data.Repositories;
 using TourDuLich.Service.Commons;
 
@@ -11,7 +12,10 @@ namespace TourDuLich.Service.Businesses
     public interface IThongKeService
     {
         DoanhThuViewModel ThongKeDoanhThuTourDuLich(DateTime from, DateTime to, int[] IndexTour);
+
         SoLanDiTourViewModel ThongKeSoLanDiTour(DateTime from, DateTime to);
+
+        TinhHinhHoatDongViewModel ThongKeTinhHinhHoatDongTheoTour(DateTime from, DateTime to, int indexSelected);
     }
 
     public class ThongKeService : IThongKeService
@@ -68,7 +72,7 @@ namespace TourDuLich.Service.Businesses
                         double giaTour = tourGia == null ? 0 : tourGia.GiaTien.Value;
                         // Lay so luong khach di thoi gian do tinh tong tien doanh thu
                         int maThoiGian = listThoiGianTour.ToArray()[j].MaThoiGianTour;
-                        soLuongKhach += bangDangKyRepository.GetMulti(x => x.MaThoiGian == maThoiGian).Count();
+                        soLuongKhach += bangDangKyRepository.GetMulti(x => x.MaThoiGianTour == maThoiGian).Count();
                         tongTien += giaTour * soLuongKhach;
                     }
                     doanhThu.SoLuongKhach[i] = soLuongKhach;
@@ -96,24 +100,69 @@ namespace TourDuLich.Service.Businesses
                 int soLanDi = 0;
                 List<DoanDuLich> listDoanDaDi = new List<DoanDuLich>();
                 dsThongKe.ListNhanVien.Add(nv);
-                if(nv.PhanCongs.Count <= 0)
+                if (nv.PhanCongs.Count <= 0)
                 {
                     dsThongKe.SoLanDi.Add(soLanDi);
                     dsThongKe.ListDoanDaDi.Add(listDoanDaDi);
                 }
                 else
                 {
-                    foreach(var pc in nv.PhanCongs.DistinctBy(x=>x.MaDoanDuLich))
+                    var dsPhanCong = phanCongRepository.GetMulti(x => x.MaNhanVien == nv.MaNhanVien, new string[] { "DoanDuLich" });
+                    foreach (var pc in dsPhanCong.DistinctBy(x => x.MaDoanDuLich))
                     {
-                        if(pc.DoanDuLich.ThoiGianTour.NgayDi.Value.Date >= from.Date && pc.DoanDuLich.ThoiGianTour.NgayVe.Value.Date <= to.Date)
+                        var thoiGianTour = thoiGianTourRepository.GetSingleByCondition(x => x.MaThoiGianTour == pc.DoanDuLich.MaThoiGianTour);
+                        if (thoiGianTour.NgayDi.Value.Date >= from.Date && thoiGianTour.NgayVe.Value.Date <= to.Date)
                         {
-                                soLanDi++;
-                                listDoanDaDi.Add(pc.DoanDuLich);
+                            soLanDi++;
+                            listDoanDaDi.Add(pc.DoanDuLich);
                         }
                     }
                     dsThongKe.SoLanDi.Add(soLanDi);
                     dsThongKe.ListDoanDaDi.Add(listDoanDaDi);
                 }
+            }
+            return dsThongKe;
+        }
+
+        public TinhHinhHoatDongViewModel ThongKeTinhHinhHoatDongTheoTour(DateTime from, DateTime to, int indexSelected)
+        {
+            TinhHinhHoatDongViewModel dsThongKe = new TinhHinhHoatDongViewModel();
+            dsThongKe.DoanhThuTours = new List<double>();
+            dsThongKe.DoanThamQuans = new List<string>();
+            dsThongKe.LoiNhuans = new List<double>();
+            dsThongKe.ThoiGianTours = new List<string>();
+            var tourThongKe = tourRepository.GetMulti(x => x.TrangThai == true, new string[] { "ThoiGianTours" }).ToArray()[indexSelected];
+            foreach (var tg in tourThongKe.ThoiGianTours.Where(x => x.NgayDi.Value >= from && x.NgayDi.Value <= to))
+            {
+                int soDoanThamQuan = 0;
+                double doanhThu = 0;
+                // Tinh tong doanh thu cua 1 tour trong lich khoi hanh tuong ung
+                double giaTour = giaTourRepository.GetMulti(x => x.MaTour == tourThongKe.MaTour && x.ThoiGianBatDau.Value <= from && x.ThoiGianKetThuc.Value >= to).OrderByDescending(x => x.Id).FirstOrDefault().GiaTien.Value;
+                int slKhachDangKy = bangDangKyRepository.GetMulti(x => x.MaThoiGianTour == tg.MaThoiGianTour).Count();
+                doanhThu = giaTour * slKhachDangKy;
+
+                // Lay so doan tham quan co tinh trang la da hoan thanh chuyen di
+                var dsDoanThamQuan = doanDuLichRepository.GetMulti(x => x.MaThoiGianTour == tg.MaThoiGianTour && x.TinhTrang == Constants.TT_HOAN_THANH);
+                soDoanThamQuan = dsDoanThamQuan.Count();
+            
+                // Tinh tong tien da chi trong chuyen di
+                // Suy ra duoc loi nhuan bang doanhthu - tongtienALL
+                double tongTatCa = 0;
+                foreach (var doan in dsDoanThamQuan)
+                {
+                    double tienAnUong = doan.TongTienAnUong.HasValue ? doan.TongTienAnUong.Value : 0;
+                    double tienKhachSan = doan.TongTienKhachSan.HasValue ? doan.TongTienKhachSan.Value : 0;
+                    double tienPhuongTien = doan.TongTienPhuongTien.HasValue ? doan.TongTienPhuongTien.Value : 0;
+                    double tienPhatSinh = doan.TongTienPhatSinh.HasValue ? doan.TongTienPhatSinh.Value : 0;
+                    tongTatCa = tienAnUong + tienKhachSan + tienPhuongTien + tienPhatSinh;
+                }
+
+                string thoiGian = tg.NgayDi.Value.ToString("dd/MM/yyyy") + "-" + tg.NgayVe.Value.ToString("dd/MM/yyyy");
+                string doanThamQuan = "Có " + soDoanThamQuan + " đoàn";
+                dsThongKe.ThoiGianTours.Add(thoiGian);
+                dsThongKe.DoanThamQuans.Add(doanThamQuan);
+                dsThongKe.DoanhThuTours.Add(doanhThu);
+                dsThongKe.LoiNhuans.Add(doanhThu - tongTatCa);
             }
             return dsThongKe;
         }

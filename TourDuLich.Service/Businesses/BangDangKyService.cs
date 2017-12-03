@@ -46,7 +46,7 @@ namespace TourDuLich.Service.Businesses
 
         public List<BangDangKy> GetAllListCheckInByTime(int MaThoiGian)
         {
-            var dsDangKy = bangDangKyRepository.GetMulti(x => x.MaThoiGian == MaThoiGian && x.MaDoanDuLich == null && x.ThoiGianTour.NgayDi >= DateTime.Now, new string[] { "KhachHang", "ThoiGianTour" }).ToList();
+            var dsDangKy = bangDangKyRepository.GetMulti(x => x.MaThoiGianTour == MaThoiGian && x.MaDoanDuLich == null && x.ThoiGianTour.NgayDi >= DateTime.Now, new string[] { "KhachHang", "ThoiGianTour" }).ToList();
             dsDangKy.ForEach(x =>
             {
                 x.KhachHang.QuocTich = quocTichRepository.GetSingleByCondition(qt => qt.MaQuocTich == x.KhachHang.MaQuocTich);

@@ -16,7 +16,7 @@ namespace TourDuLich.Data
     {
         public int Id { get; set; }
         public Nullable<int> MaKhachHang { get; set; }
-        public Nullable<int> MaThoiGian { get; set; }
+        public Nullable<int> MaThoiGianTour { get; set; }
         public Nullable<int> MaDoanDuLich { get; set; }
         public Nullable<System.DateTime> NgayDangKy { get; set; }
     

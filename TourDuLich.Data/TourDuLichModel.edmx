@@ -11,7 +11,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKhachHang" Type="int" />
-          <Property Name="MaThoiGian" Type="int" />
+          <Property Name="MaThoiGianTour" Type="int" />
           <Property Name="MaDoanDuLich" Type="int" />
           <Property Name="NgayDangKy" Type="datetime" />
         </EntityType>
@@ -77,6 +77,10 @@
           <Property Name="TenDoanDuLich" Type="nvarchar" MaxLength="250" />
           <Property Name="SoLuongKhach" Type="int" />
           <Property Name="SoLuongNhanVien" Type="int" />
+          <Property Name="TongTienAnUong" Type="float" />
+          <Property Name="TongTienPhuongTien" Type="float" />
+          <Property Name="TongTienKhachSan" Type="float" />
+          <Property Name="TongTienPhatSinh" Type="float" />
           <Property Name="TinhTrang" Type="int" />
         </EntityType>
         <EntityType Name="GiaTour">
@@ -291,7 +295,7 @@
               <PropertyRef Name="MaThoiGianTour" />
             </Principal>
             <Dependent Role="BangDangKy">
-              <PropertyRef Name="MaThoiGian" />
+              <PropertyRef Name="MaThoiGianTour" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -581,7 +585,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaKhachHang" Type="Int32" />
-          <Property Name="MaThoiGian" Type="Int32" />
+          <Property Name="MaThoiGianTour" Type="Int32" />
           <Property Name="MaDoanDuLich" Type="Int32" />
           <Property Name="NgayDangKy" Type="DateTime" Precision="3" />
           <NavigationProperty Name="DoanDuLich" Relationship="Self.FK_KhachDangKy_DoanDuLich" FromRole="BangDangKy" ToRole="DoanDuLich" />
@@ -659,6 +663,10 @@
           <Property Name="TenDoanDuLich" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="SoLuongKhach" Type="Int32" />
           <Property Name="SoLuongNhanVien" Type="Int32" />
+          <Property Name="TongTienAnUong" Type="Double" />
+          <Property Name="TongTienPhuongTien" Type="Double" />
+          <Property Name="TongTienKhachSan" Type="Double" />
+          <Property Name="TongTienPhatSinh" Type="Double" />
           <Property Name="TinhTrang" Type="Int32" />
           <NavigationProperty Name="BangDangKies" Relationship="Self.FK_KhachDangKy_DoanDuLich" FromRole="DoanDuLich" ToRole="BangDangKy" />
           <NavigationProperty Name="ThoiGianTour" Relationship="Self.FK_DoanDuLich_ThoiGianTour" FromRole="DoanDuLich" ToRole="ThoiGianTour" />
@@ -855,7 +863,7 @@
               <PropertyRef Name="MaThoiGianTour" />
             </Principal>
             <Dependent Role="BangDangKy">
-              <PropertyRef Name="MaThoiGian" />
+              <PropertyRef Name="MaThoiGianTour" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1193,7 +1201,7 @@
               <MappingFragment StoreEntitySet="BangDangKy">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
-                <ScalarProperty Name="MaThoiGian" ColumnName="MaThoiGian" />
+                <ScalarProperty Name="MaThoiGianTour" ColumnName="MaThoiGianTour" />
                 <ScalarProperty Name="MaDoanDuLich" ColumnName="MaDoanDuLich" />
                 <ScalarProperty Name="NgayDangKy" ColumnName="NgayDangKy" />
               </MappingFragment>
@@ -1266,6 +1274,10 @@
                 <ScalarProperty Name="TenDoanDuLich" ColumnName="TenDoanDuLich" />
                 <ScalarProperty Name="SoLuongKhach" ColumnName="SoLuongKhach" />
                 <ScalarProperty Name="SoLuongNhanVien" ColumnName="SoLuongNhanVien" />
+                <ScalarProperty Name="TongTienAnUong" ColumnName="TongTienAnUong" />
+                <ScalarProperty Name="TongTienPhuongTien" ColumnName="TongTienPhuongTien" />
+                <ScalarProperty Name="TongTienKhachSan" ColumnName="TongTienKhachSan" />
+                <ScalarProperty Name="TongTienPhatSinh" ColumnName="TongTienPhatSinh" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -64,6 +64,7 @@
     <Compile Include="Commons\DoanhThuViewModel.cs" />
     <Compile Include="Commons\IndexInfo.cs" />
     <Compile Include="Commons\SoLanDiTourViewModel.cs" />
+    <Compile Include="Commons\TinhHinhHoatDongViewModel.cs" />
     <Compile Include="Commons\TourViewModel.cs" />
     <Compile Include="ResultState.cs" />
     <Compile Include="Businesses\KhachHangService.cs" />

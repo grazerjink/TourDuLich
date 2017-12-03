@@ -25,7 +25,7 @@ namespace TourDuLich.Win.Controls
             }).Start();
         }
 
-        public void LoadAllContent()
+        private void LoadAllContent()
         {
             if (!InvokeRequired)
             {

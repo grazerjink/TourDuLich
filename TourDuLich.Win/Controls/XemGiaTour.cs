@@ -11,7 +11,6 @@ namespace TourDuLich.Win.Controls
     {
         private ITourService tourService;
         private List<TourViewModel> listTour;
-        private TourViewModel[] listTmp;
 
         public XemGiaTour(ITourService tourService)
         {
