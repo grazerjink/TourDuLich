@@ -16,6 +16,7 @@ namespace TourDuLich.Service.Businesses
         SoLanDiTourViewModel ThongKeSoLanDiTour(DateTime from, DateTime to);
 
         TinhHinhHoatDongViewModel ThongKeTinhHinhHoatDongTheoTour(DateTime from, DateTime to, int indexSelected);
+        ThongKeChiPhiViewModel GetListFeeOfTour(DateTime from, DateTime to, int maTour);
     }
 
     public class ThongKeService : IThongKeService
@@ -43,6 +44,65 @@ namespace TourDuLich.Service.Businesses
             this.phanCongRepository = phanCongRepository;
             this.doanDuLichRepository = doanDuLichRepository;
             this.nhanVienRepository = nhanVienRepository;
+        }
+
+        public ThongKeChiPhiViewModel GetListFeeOfTour(DateTime from, DateTime to, int maTour)
+        {
+            ThongKeChiPhiViewModel dsThongKe = new ThongKeChiPhiViewModel();
+            dsThongKe.DanhSachThoiGianTour = new List<string>();
+            dsThongKe.ChiPhiKhachSans = new List<double>();
+            dsThongKe.ChiPhiAnUongs = new List<double>();
+            dsThongKe.ChiPhiPhatSinhs = new List<double>();
+            dsThongKe.ChiPhiPhuongTiens = new List<double>();
+
+            double tongChiPhiKhachSan = 0;
+            double tongChiPhiAnUong = 0;
+            double tongChiPhiPhatSinh = 0;
+            double tongChiPhiPhuongTien = 0;
+
+            var tour = tourRepository.GetSingleByCondition(x => x.MaTour == maTour, new string[] { "ThoiGianTours" });
+            var listThoiGianHopLe = tour.ThoiGianTours.Where(x => x.NgayDi >= from && x.NgayVe <= to);
+            if (listThoiGianHopLe == null)
+            {
+                return null;
+            }
+            else
+            {
+                foreach (var tg in listThoiGianHopLe)
+                {
+                    string thoiGian = tg.NgayDi.Value.ToString("dd/MM/yyyy") + " - " + tg.NgayVe.Value.ToString("dd/MM/yyyy");
+                    dsThongKe.DanhSachThoiGianTour.Add(thoiGian);
+
+                    var dsDoan = doanDuLichRepository.GetMulti(x => x.MaThoiGianTour == tg.MaThoiGianTour);
+                    double chiPhiKhachSan = 0;
+                    double chiPhiAnUong = 0;
+                    double chiPhiPhatSinh = 0;
+                    double chiPhiPhuongTien = 0;
+                    foreach (var d in dsDoan)
+                    {
+                        chiPhiAnUong += d.TongTienAnUong.HasValue ? d.TongTienAnUong.Value : 0;
+                        chiPhiKhachSan += d.TongTienKhachSan.HasValue ? d.TongTienKhachSan.Value : 0;
+                        chiPhiPhatSinh += d.TongTienPhatSinh.HasValue ? d.TongTienPhatSinh.Value : 0;
+                        chiPhiPhuongTien += d.TongTienPhuongTien.HasValue ? d.TongTienPhuongTien.Value : 0;
+                    }
+                    dsThongKe.ChiPhiAnUongs.Add(chiPhiAnUong);
+                    dsThongKe.ChiPhiKhachSans.Add(chiPhiKhachSan);
+                    dsThongKe.ChiPhiPhatSinhs.Add(chiPhiPhatSinh);
+                    dsThongKe.ChiPhiPhuongTiens.Add(chiPhiPhuongTien);
+
+                    tongChiPhiKhachSan += chiPhiKhachSan;
+                    tongChiPhiAnUong += chiPhiAnUong;
+                    tongChiPhiPhatSinh += chiPhiPhatSinh;
+                    tongChiPhiPhuongTien += chiPhiPhuongTien;
+                }
+
+                dsThongKe.TongChiPhiAnUong = tongChiPhiAnUong;
+                dsThongKe.TongChiPhiKhachSan = tongChiPhiKhachSan;
+                dsThongKe.TongChiPhiPhatSinh = tongChiPhiPhatSinh;
+                dsThongKe.TongChiPhiPhuongTien = tongChiPhiPhuongTien;
+
+                return dsThongKe;
+            }
         }
 
         public DoanhThuViewModel ThongKeDoanhThuTourDuLich(DateTime from, DateTime to, int[] IndexTour)

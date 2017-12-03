@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "ThongKeChiPhi";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var successMessage = (string)TempData["Success"];
+    var errorMessage = (string)TempData["Error"];
+    var listDangKy = ViewBag.dsDangKy as List<TourDuLich.Data.BangDangKy>;
+    var doanSelectList = ViewBag.DoanSelectList as IEnumerable<object>;
+    var thoiGianSelectList = ViewBag.ThoiGianTourSelectList as IEnumerable<object>;
+}
+
+@section headerCSS {
+}
+
+@section footerJS {
+    <script src="~/Assets/template/lib/chart.js/Chart.js"></script>
+    <script src="~/Assets/js/thong-ke-chi-phi.js"></script>
+    <script>
+        @if(successMessage != null && successMessage.Length != 0)
+        {
+            @:showSuccessToast("@successMessage");
+        }
+        @if(errorMessage != null && errorMessage.Length != 0)
+        {
+            @:showErrorToast("@errorMessage");
+        }
+    </script>
+}
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="/">KJ Tourist</a>
+    <span class="breadcrumb-item active">Thống kê chi phí hoạt động</span>
+</nav>
+<div class="sl-pagebody">
+    <div class="card pd-20 pd-sm-40">
+        <h6 class="card-body-title">Thông tin thống kê</h6>
+        <p class="mg-b-20 mg-sm-b-20"></p>
+
+        <div class="row mg-b-25">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label">Tour du lịch: <span class="tx-danger">*</span></label>
+                    @Html.DropDownList("MaTour", ViewBag.TourSelectList as SelectList, "Chọn tour du lịch", new { @class = "form-control select2" })
+                </div>
+            </div><!-- col-4 -->
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="form-control-label">Thời gian bắt đầu: <span class="tx-danger">*</span></label>                        
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                        <input type="text" placeholder="Nhập thời gian bắt đầu" name="ngayBatDau" id="ngayBatDau" class="form-control fc-datepicker">
+                    </div>    
+                </div>
+            </div><!-- col-4 -->
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="form-control-label">Thời gian kết thúc: <span class="tx-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                        <input type="text" placeholder="Nhập thời gian bắt đầu" name="ngayKetThuc" id="ngayKetThuc" class="form-control fc-datepicker">
+                    </div>
+                </div>
+            </div><!-- col-4 -->
+            <div class="col-lg-6">
+                <div class="form-group form-layout-footer" style="margin-top: 20px;">
+                    <button id="btnThongKe" class="btn btn-info mg-r-5">Thống kê chi phí</button>
+                    <a href="/" class="btn btn-secondary">Trở về</a>
+                </div>
+            </div><!-- col-6 -->
+            <div class="col-lg-6 pull-right">
+                <div class="form-group" style="margin-top: 20px;">
+                    @Html.ValidationSummary()
+                    <span class="tour-error">@ViewBag.Error</span>
+                    <span class="tour-error">@ViewBag.Success</span>
+                </div>
+            </div><!-- col-6 -->
+        </div><!-- row -->
+        <div class="row mg-b-25">
+            <div class="col-md-8 col-sm-8 col-xs-10">
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+                <label>
+                    Tổng chi phí khách sạn:
+                </label>
+                <p id="TongChiPhiKhachSan">0.00</p>
+                <hr />
+                <label>
+                    Tổng chi phí ăn uống:
+                </label>
+                <p id="TongChiPhiAnUong">0.00</p>
+                <hr />
+                <label>
+                    Tổng chi phí phương tiện:
+                </label>
+                <p id="TongChiPhiPhuongTien">0.00</p>
+                <hr />
+                <label>
+                    Tổng chi phí phát sinh:
+                </label>
+                <p id="TongChiPhiPhatSinh">0.00</p>
+            </div>
+        </div>
+    </div><!-- card -->
+</div><!-- sl-pagebody -->
