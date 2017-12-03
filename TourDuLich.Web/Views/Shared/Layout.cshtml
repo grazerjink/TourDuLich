@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Meta -->
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+    <title>KJ Tourist Responsive Admin</title>
+    <!-- vendor css -->
+    <link href="~/Assets/template/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Assets/template/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="~/Assets/template/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="~/Assets/vendor/toastr/toastr.min.css" rel="stylesheet" />
+    @RenderSection("headerCSS", false)
+    <!-- Starlight CSS -->
+    <link rel="stylesheet" href="~/Assets/template/css/starlight.css">
+</head>
+
+<body>
+
+    <!-- ########## START: LEFT PANEL ########## -->
+    @{ Html.RenderPartial("LeftPanel"); }
+    <!-- ########## END: LEFT PANEL ########## -->
+
+    <!-- ########## START: HEAD PANEL ########## -->
+    @{ Html.RenderPartial("HeadPanel"); }
+    <!-- ########## END: HEAD PANEL ########## -->
+
+    <!-- ########## START: RIGHT PANEL ########## -->
+    @{ Html.RenderPartial("RightPanel"); }
+    <!-- ########## END: RIGHT PANEL ########## --->
+
+    <!-- ########## START: MAIN PANEL ########## -->
+    <div class="sl-mainpanel">
+        @RenderBody()
+        @{ Html.RenderPartial("Footer"); }
+    </div><!-- sl-mainpanel -->
+    <!-- ########## END: MAIN PANEL ########## -->
+
+    <script src="~/Assets/template/lib/jquery/jquery.js"></script>
+    <script src="~/Assets/template/lib/popper.js/popper.js"></script>
+    <script src="~/Assets/template/lib/bootstrap/bootstrap.js"></script>
+    <script src="~/Assets/template/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/Assets/template/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="~/Assets/template/lib/jquery.sparkline.bower/jquery.sparkline.min.js"></script>
+    <script src="~/Assets/vendor/toastr/toastr.min.js"></script>
+    <script src="~/Assets/js/show-toast.js"></script>
+    @RenderSection("footerJS", false)
+    <script src="~/Assets/template/js/starlight.js"></script>
+    <script src="~/Assets/template/js/ResizeSensor.js"></script>
+</body>
+</html>
